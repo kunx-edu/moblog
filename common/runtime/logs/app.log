@@ -12133,3 +12133,515 @@ $_SERVER = [
     'REQUEST_TIME_FLOAT' => 1421854712.602
     'REQUEST_TIME' => 1421854712
 ]
+2015-01-23 22:49:21 [192.168.10.1][-][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.10.1
+    in /web_data/blog/frontend/views/layouts/main.php:79
+    in /web_data/blog/frontend/controllers/SiteController.php:39
+2015-01-23 22:49:20 [192.168.10.1][-][-][info][application] $_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/index.php'
+    'REMOTE_PORT' => '50302'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1422024560.591
+    'REQUEST_TIME' => 1422024560
+]
+2015-01-23 22:49:22 [192.168.10.1][-][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.10.1
+    in /web_data/blog/frontend/views/layouts/main.php:79
+    in /web_data/blog/frontend/controllers/SiteController.php:57
+2015-01-23 22:49:22 [192.168.10.1][-][-][info][application] $_GET = [
+    'r' => 'site/page'
+    'id' => '24'
+]
+
+$_COOKIE = [
+    '_csrf' => 'c9decf89000f32b34540bccbf0c59158fa278f6d14b4683939fe91595eaf278cs:32:\"DugbTehMTUOKwxsYy0T6K-IkN_6w3XPn\";'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_REFERER' => 'http://blog.m.com/'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'HTTP_COOKIE' => '_csrf=c9decf89000f32b34540bccbf0c59158fa278f6d14b4683939fe91595eaf278cs%3A32%3A%22DugbTehMTUOKwxsYy0T6K-IkN_6w3XPn%22%3B'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/index.php'
+    'REMOTE_PORT' => '50303'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=site%2Fpage&id=24'
+    'REQUEST_URI' => '/index.php?r=site%2Fpage&id=24'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1422024562.688
+    'REQUEST_TIME' => 1422024562
+]
+2015-01-23 22:55:17 [192.168.10.1][-][-][error][yii\base\ErrorException:8] exception 'yii\base\ErrorException' with message 'Undefined offset: 0' in /web_data/blog/common/components/CategoryComp.php:47
+Stack trace:
+#0 /web_data/blog/common/components/CategoryComp.php(47): yii\base\ErrorHandler->handleError(8, 'Undefined offse...', '/web_data/blog/...', 47, Array)
+#1 /web_data/blog/common/widgets/CategoryList.php(25): common\components\CategoryComp->getAllChildren()
+#2 /web_data/blog/vendor/yiisoft/yii2/base/Object.php(107): common\widgets\CategoryList->init()
+#3 [internal function]: yii\base\Object->__construct(Array)
+#4 /web_data/blog/vendor/yiisoft/yii2/di/Container.php(364): ReflectionClass->newInstanceArgs(Array)
+#5 /web_data/blog/vendor/yiisoft/yii2/di/Container.php(147): yii\di\Container->build('common\\widgets\\...', Array, Array)
+#6 /web_data/blog/vendor/yiisoft/yii2/BaseYii.php(344): yii\di\Container->get('common\\widgets\\...', Array, Array)
+#7 /web_data/blog/vendor/yiisoft/yii2/base/Widget.php(95): yii\BaseYii::createObject(Array)
+#8 /web_data/blog/frontend/views/site/_right.php(15): yii\base\Widget::widget()
+#9 /web_data/blog/vendor/yiisoft/yii2/base/View.php(325): require('/web_data/blog/...')
+#10 /web_data/blog/vendor/yiisoft/yii2/base/View.php(247): yii\base\View->renderPhpFile('/web_data/blog/...', Array)
+#11 /web_data/blog/vendor/yiisoft/yii2/base/View.php(149): yii\base\View->renderFile('/web_data/blog/...', Array, NULL)
+#12 /web_data/blog/frontend/views/site/list.php(63): yii\base\View->render('_right')
+#13 /web_data/blog/vendor/yiisoft/yii2/base/View.php(325): require('/web_data/blog/...')
+#14 /web_data/blog/vendor/yiisoft/yii2/base/View.php(247): yii\base\View->renderPhpFile('/web_data/blog/...', Array)
+#15 /web_data/blog/vendor/yiisoft/yii2/base/View.php(149): yii\base\View->renderFile('/web_data/blog/...', Array, Object(frontend\controllers\SiteController))
+#16 /web_data/blog/vendor/yiisoft/yii2/base/Controller.php(367): yii\base\View->render('list', Array, Object(frontend\controllers\SiteController))
+#17 /web_data/blog/frontend/controllers/SiteController.php(39): yii\base\Controller->render('list', Array)
+#18 [internal function]: frontend\controllers\SiteController->actionIndex()
+#19 /web_data/blog/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#20 /web_data/blog/vendor/yiisoft/yii2/base/Controller.php(151): yii\base\InlineAction->runWithParams(Array)
+#21 /web_data/blog/vendor/yiisoft/yii2/base/Module.php(455): yii\base\Controller->runAction('', Array)
+#22 /web_data/blog/vendor/yiisoft/yii2/web/Application.php(83): yii\base\Module->runAction('', Array)
+#23 /web_data/blog/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#24 /web_data/blog/web/index.php(18): yii\base\Application->run()
+#25 {main}
+2015-01-23 22:55:17 [192.168.10.1][-][-][info][application] $_COOKIE = [
+    '_csrf' => 'c9decf89000f32b34540bccbf0c59158fa278f6d14b4683939fe91595eaf278cs:32:\"DugbTehMTUOKwxsYy0T6K-IkN_6w3XPn\";'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'HTTP_COOKIE' => '_csrf=c9decf89000f32b34540bccbf0c59158fa278f6d14b4683939fe91595eaf278cs%3A32%3A%22DugbTehMTUOKwxsYy0T6K-IkN_6w3XPn%22%3B'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/index.php'
+    'REMOTE_PORT' => '50383'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1422024917.713
+    'REQUEST_TIME' => 1422024917
+]
+2015-01-23 22:56:23 [192.168.10.1][-][-][error][yii\base\ErrorException:2] exception 'yii\base\ErrorException' with message 'Invalid argument supplied for foreach()' in /web_data/blog/common/widgets/CategoryList.php:29
+Stack trace:
+#0 /web_data/blog/common/widgets/CategoryList.php(29): yii\base\ErrorHandler->handleError(2, 'Invalid argumen...', '/web_data/blog/...', 29, Array)
+#1 /web_data/blog/vendor/yiisoft/yii2/base/Object.php(107): common\widgets\CategoryList->init()
+#2 [internal function]: yii\base\Object->__construct(Array)
+#3 /web_data/blog/vendor/yiisoft/yii2/di/Container.php(364): ReflectionClass->newInstanceArgs(Array)
+#4 /web_data/blog/vendor/yiisoft/yii2/di/Container.php(147): yii\di\Container->build('common\\widgets\\...', Array, Array)
+#5 /web_data/blog/vendor/yiisoft/yii2/BaseYii.php(344): yii\di\Container->get('common\\widgets\\...', Array, Array)
+#6 /web_data/blog/vendor/yiisoft/yii2/base/Widget.php(95): yii\BaseYii::createObject(Array)
+#7 /web_data/blog/frontend/views/site/_right.php(15): yii\base\Widget::widget()
+#8 /web_data/blog/vendor/yiisoft/yii2/base/View.php(325): require('/web_data/blog/...')
+#9 /web_data/blog/vendor/yiisoft/yii2/base/View.php(247): yii\base\View->renderPhpFile('/web_data/blog/...', Array)
+#10 /web_data/blog/vendor/yiisoft/yii2/base/View.php(149): yii\base\View->renderFile('/web_data/blog/...', Array, NULL)
+#11 /web_data/blog/frontend/views/site/list.php(63): yii\base\View->render('_right')
+#12 /web_data/blog/vendor/yiisoft/yii2/base/View.php(325): require('/web_data/blog/...')
+#13 /web_data/blog/vendor/yiisoft/yii2/base/View.php(247): yii\base\View->renderPhpFile('/web_data/blog/...', Array)
+#14 /web_data/blog/vendor/yiisoft/yii2/base/View.php(149): yii\base\View->renderFile('/web_data/blog/...', Array, Object(frontend\controllers\SiteController))
+#15 /web_data/blog/vendor/yiisoft/yii2/base/Controller.php(367): yii\base\View->render('list', Array, Object(frontend\controllers\SiteController))
+#16 /web_data/blog/frontend/controllers/SiteController.php(39): yii\base\Controller->render('list', Array)
+#17 [internal function]: frontend\controllers\SiteController->actionIndex()
+#18 /web_data/blog/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#19 /web_data/blog/vendor/yiisoft/yii2/base/Controller.php(151): yii\base\InlineAction->runWithParams(Array)
+#20 /web_data/blog/vendor/yiisoft/yii2/base/Module.php(455): yii\base\Controller->runAction('', Array)
+#21 /web_data/blog/vendor/yiisoft/yii2/web/Application.php(83): yii\base\Module->runAction('', Array)
+#22 /web_data/blog/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#23 /web_data/blog/web/index.php(18): yii\base\Application->run()
+#24 {main}
+2015-01-23 22:56:23 [192.168.10.1][-][-][info][application] $_COOKIE = [
+    '_csrf' => 'c9decf89000f32b34540bccbf0c59158fa278f6d14b4683939fe91595eaf278cs:32:\"DugbTehMTUOKwxsYy0T6K-IkN_6w3XPn\";'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'HTTP_COOKIE' => '_csrf=c9decf89000f32b34540bccbf0c59158fa278f6d14b4683939fe91595eaf278cs%3A32%3A%22DugbTehMTUOKwxsYy0T6K-IkN_6w3XPn%22%3B'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/index.php'
+    'REMOTE_PORT' => '50389'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1422024983.481
+    'REQUEST_TIME' => 1422024983
+]
+2015-01-23 22:57:17 [192.168.10.1][-][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.10.1
+    in /web_data/blog/frontend/views/layouts/main.php:79
+    in /web_data/blog/frontend/controllers/SiteController.php:39
+2015-01-23 22:57:17 [192.168.10.1][-][-][info][application] $_COOKIE = [
+    '_csrf' => 'c9decf89000f32b34540bccbf0c59158fa278f6d14b4683939fe91595eaf278cs:32:\"DugbTehMTUOKwxsYy0T6K-IkN_6w3XPn\";'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'HTTP_COOKIE' => '_csrf=c9decf89000f32b34540bccbf0c59158fa278f6d14b4683939fe91595eaf278cs%3A32%3A%22DugbTehMTUOKwxsYy0T6K-IkN_6w3XPn%22%3B'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/index.php'
+    'REMOTE_PORT' => '50401'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1422025037.682
+    'REQUEST_TIME' => 1422025037
+]
+2015-01-23 22:57:25 [192.168.10.1][-][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.10.1
+    in /web_data/blog/frontend/views/layouts/main.php:79
+    in /web_data/blog/frontend/controllers/SiteController.php:39
+2015-01-23 22:57:25 [192.168.10.1][-][-][info][application] $_COOKIE = [
+    '_csrf' => 'c9decf89000f32b34540bccbf0c59158fa278f6d14b4683939fe91595eaf278cs:32:\"DugbTehMTUOKwxsYy0T6K-IkN_6w3XPn\";'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_REFERER' => 'http://blog.m.com/'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'HTTP_COOKIE' => '_csrf=c9decf89000f32b34540bccbf0c59158fa278f6d14b4683939fe91595eaf278cs%3A32%3A%22DugbTehMTUOKwxsYy0T6K-IkN_6w3XPn%22%3B'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/index.php'
+    'REMOTE_PORT' => '50409'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/index.php'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1422025045.688
+    'REQUEST_TIME' => 1422025045
+]
+2015-01-23 22:57:44 [192.168.10.1][1][-][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "comment".' in /web_data/blog/vendor/yiisoft/yii2/base/Module.php:461
+Stack trace:
+#0 /web_data/blog/vendor/yiisoft/yii2/web/Application.php(83): yii\base\Module->runAction('comment', Array)
+#1 /web_data/blog/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /web_data/blog/web/admin.php(18): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Unable to resolve the request "comment".' in /web_data/blog/vendor/yiisoft/yii2/web/Application.php:95
+Stack trace:
+#0 /web_data/blog/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /web_data/blog/web/admin.php(18): yii\base\Application->run()
+#2 {main}
+2015-01-23 22:57:44 [192.168.10.1][1][-][info][application] $_GET = [
+    'r' => 'comment'
+]
+
+$_COOKIE = [
+    '_csrf' => '8fe44352feb317ec8b5719b4928180a5e01c0695022b61d9aeca2e15b7d3b0f6s:32:\"iZKAypi-zA6rkyEOhqpimU3p4jA4jvIb\";'
+    'PHPSESSID' => 'u1l1uo5ht3m3h8du1ogep5qun2'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => '/admin.php'
+    '__id' => 1
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_REFERER' => 'http://blog.m.com/admin.php?r=page'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'HTTP_COOKIE' => '_csrf=8fe44352feb317ec8b5719b4928180a5e01c0695022b61d9aeca2e15b7d3b0f6s%3A32%3A%22iZKAypi-zA6rkyEOhqpimU3p4jA4jvIb%22%3B; PHPSESSID=u1l1uo5ht3m3h8du1ogep5qun2'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/admin.php'
+    'REMOTE_PORT' => '50427'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=comment'
+    'REQUEST_URI' => '/admin.php?r=comment'
+    'SCRIPT_NAME' => '/admin.php'
+    'PHP_SELF' => '/admin.php'
+    'REQUEST_TIME_FLOAT' => 1422025064.767
+    'REQUEST_TIME' => 1422025064
+]
+2015-01-23 22:57:46 [192.168.10.1][1][-][error][yii\base\ErrorException:8] exception 'yii\base\ErrorException' with message 'Undefined offset: 0' in /web_data/blog/common/components/CategoryComp.php:122
+Stack trace:
+#0 /web_data/blog/common/components/CategoryComp.php(122): yii\base\ErrorHandler->handleError(8, 'Undefined offse...', '/web_data/blog/...', 122, Array)
+#1 /web_data/blog/backend/controllers/CategoryController.php(31): common\components\CategoryComp->getSubCategoryList(0)
+#2 [internal function]: backend\controllers\CategoryController->actionIndex(0)
+#3 /web_data/blog/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#4 /web_data/blog/vendor/yiisoft/yii2/base/Controller.php(151): yii\base\InlineAction->runWithParams(Array)
+#5 /web_data/blog/vendor/yiisoft/yii2/base/Module.php(455): yii\base\Controller->runAction('', Array)
+#6 /web_data/blog/vendor/yiisoft/yii2/web/Application.php(83): yii\base\Module->runAction('category', Array)
+#7 /web_data/blog/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#8 /web_data/blog/web/admin.php(18): yii\base\Application->run()
+#9 {main}
+2015-01-23 22:57:46 [192.168.10.1][1][-][info][application] $_GET = [
+    'r' => 'category'
+]
+
+$_COOKIE = [
+    '_csrf' => '8fe44352feb317ec8b5719b4928180a5e01c0695022b61d9aeca2e15b7d3b0f6s:32:\"iZKAypi-zA6rkyEOhqpimU3p4jA4jvIb\";'
+    'PHPSESSID' => 'u1l1uo5ht3m3h8du1ogep5qun2'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => '/admin.php'
+    '__id' => 1
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_REFERER' => 'http://blog.m.com/admin.php?r=comment'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'HTTP_COOKIE' => '_csrf=8fe44352feb317ec8b5719b4928180a5e01c0695022b61d9aeca2e15b7d3b0f6s%3A32%3A%22iZKAypi-zA6rkyEOhqpimU3p4jA4jvIb%22%3B; PHPSESSID=u1l1uo5ht3m3h8du1ogep5qun2'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/admin.php'
+    'REMOTE_PORT' => '50429'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=category'
+    'REQUEST_URI' => '/admin.php?r=category'
+    'SCRIPT_NAME' => '/admin.php'
+    'PHP_SELF' => '/admin.php'
+    'REQUEST_TIME_FLOAT' => 1422025066.607
+    'REQUEST_TIME' => 1422025066
+]
+2015-01-23 22:58:33 [192.168.10.1][1][-][error][yii\base\ErrorException:2] exception 'yii\base\ErrorException' with message 'Invalid argument supplied for foreach()' in /web_data/blog/backend/views/category/index.php:35
+Stack trace:
+#0 /web_data/blog/backend/views/category/index.php(35): yii\base\ErrorHandler->handleError(2, 'Invalid argumen...', '/web_data/blog/...', 35, Array)
+#1 /web_data/blog/vendor/yiisoft/yii2/base/View.php(325): require('/web_data/blog/...')
+#2 /web_data/blog/vendor/yiisoft/yii2/base/View.php(247): yii\base\View->renderPhpFile('/web_data/blog/...', Array)
+#3 /web_data/blog/vendor/yiisoft/yii2/base/View.php(149): yii\base\View->renderFile('/web_data/blog/...', Array, Object(backend\controllers\CategoryController))
+#4 /web_data/blog/vendor/yiisoft/yii2/base/Controller.php(367): yii\base\View->render('index', Array, Object(backend\controllers\CategoryController))
+#5 /web_data/blog/backend/controllers/CategoryController.php(31): yii\base\Controller->render('index', Array)
+#6 [internal function]: backend\controllers\CategoryController->actionIndex(0)
+#7 /web_data/blog/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#8 /web_data/blog/vendor/yiisoft/yii2/base/Controller.php(151): yii\base\InlineAction->runWithParams(Array)
+#9 /web_data/blog/vendor/yiisoft/yii2/base/Module.php(455): yii\base\Controller->runAction('', Array)
+#10 /web_data/blog/vendor/yiisoft/yii2/web/Application.php(83): yii\base\Module->runAction('category', Array)
+#11 /web_data/blog/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#12 /web_data/blog/web/admin.php(18): yii\base\Application->run()
+#13 {main}
+2015-01-23 22:58:32 [192.168.10.1][1][-][info][application] $_GET = [
+    'r' => 'category'
+]
+
+$_COOKIE = [
+    '_csrf' => '8fe44352feb317ec8b5719b4928180a5e01c0695022b61d9aeca2e15b7d3b0f6s:32:\"iZKAypi-zA6rkyEOhqpimU3p4jA4jvIb\";'
+    'PHPSESSID' => 'u1l1uo5ht3m3h8du1ogep5qun2'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => '/admin.php'
+    '__id' => 1
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_REFERER' => 'http://blog.m.com/admin.php?r=comment'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'HTTP_COOKIE' => '_csrf=8fe44352feb317ec8b5719b4928180a5e01c0695022b61d9aeca2e15b7d3b0f6s%3A32%3A%22iZKAypi-zA6rkyEOhqpimU3p4jA4jvIb%22%3B; PHPSESSID=u1l1uo5ht3m3h8du1ogep5qun2'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/admin.php'
+    'REMOTE_PORT' => '50434'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=category'
+    'REQUEST_URI' => '/admin.php?r=category'
+    'SCRIPT_NAME' => '/admin.php'
+    'PHP_SELF' => '/admin.php'
+    'REQUEST_TIME_FLOAT' => 1422025112.924
+    'REQUEST_TIME' => 1422025112
+]
+2015-01-23 23:00:16 [192.168.10.1][1][-][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "media".' in /web_data/blog/vendor/yiisoft/yii2/base/Module.php:461
+Stack trace:
+#0 /web_data/blog/vendor/yiisoft/yii2/web/Application.php(83): yii\base\Module->runAction('media', Array)
+#1 /web_data/blog/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /web_data/blog/web/admin.php(18): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Unable to resolve the request "media".' in /web_data/blog/vendor/yiisoft/yii2/web/Application.php:95
+Stack trace:
+#0 /web_data/blog/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /web_data/blog/web/admin.php(18): yii\base\Application->run()
+#2 {main}
+2015-01-23 23:00:16 [192.168.10.1][1][-][info][application] $_GET = [
+    'r' => 'media'
+]
+
+$_COOKIE = [
+    '_csrf' => '8fe44352feb317ec8b5719b4928180a5e01c0695022b61d9aeca2e15b7d3b0f6s:32:\"iZKAypi-zA6rkyEOhqpimU3p4jA4jvIb\";'
+    'PHPSESSID' => 'u1l1uo5ht3m3h8du1ogep5qun2'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => '/admin.php'
+    '__id' => 1
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_REFERER' => 'http://blog.m.com/admin.php?r=tag%2Fcreate'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'HTTP_COOKIE' => '_csrf=8fe44352feb317ec8b5719b4928180a5e01c0695022b61d9aeca2e15b7d3b0f6s%3A32%3A%22iZKAypi-zA6rkyEOhqpimU3p4jA4jvIb%22%3B; PHPSESSID=u1l1uo5ht3m3h8du1ogep5qun2'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/admin.php'
+    'REMOTE_PORT' => '50454'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=media'
+    'REQUEST_URI' => '/admin.php?r=media'
+    'SCRIPT_NAME' => '/admin.php'
+    'PHP_SELF' => '/admin.php'
+    'REQUEST_TIME_FLOAT' => 1422025216.201
+    'REQUEST_TIME' => 1422025216
+]

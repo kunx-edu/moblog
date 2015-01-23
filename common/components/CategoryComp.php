@@ -44,10 +44,13 @@ class CategoryComp extends BaseComp{
 
     public function getAllChildren(){
         $list=[];
-        foreach($this->_childrenIdList[0] as $v){
-            $list=array_merge($list,$this->getChildren($v));
+        if(!empty($this->_childrenIdList)){
+            foreach($this->_childrenIdList[0] as $v){
+                $list=array_merge($list,$this->getChildren($v));
+            }
+            return $list;
         }
-        return $list;
+
     }
 
     public function getChildren($parent,$depth=1){
@@ -116,10 +119,13 @@ class CategoryComp extends BaseComp{
             return [];
         }
         $list=[];
-        foreach($this->_childrenIdList[$parent] as $v){
-            $list[$v]=$this->_allCategoryList[$v];
+        if(!empty($this->_childrenIdList)){
+            foreach($this->_childrenIdList[$parent] as $v){
+                $list[$v]=$this->_allCategoryList[$v];
+            }
         }
         return $list;
+
     }
 
     //直接子分类数量
