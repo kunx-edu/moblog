@@ -30,18 +30,20 @@ class CategoryDropDownList extends yii\bootstrap\Widget{
         $this->options['prompt']='不选择';
 
         $categoryList=CategoryComp::getInstance()->getAllChildren();
+        if(!empty($categoryList)){
+            foreach($categoryList as $v){
+                $tempArr=[];
+                $tempArr[$v['mid']]=str_repeat('    ',$v['depth']-1).$v['name'];
+                $this->_categoryList+=$tempArr;
 
-        foreach($categoryList as $v){
-            $tempArr=[];
-            $tempArr[$v['mid']]=str_repeat('    ',$v['depth']-1).$v['name'];
-            $this->_categoryList+=$tempArr;
+                if($this->currentOptionDisabled){
+                    $model=$this->model;
+                    $this->options['options'][$model->mid]=['disabled' => true];
+                }
 
-            if($this->currentOptionDisabled){
-                $model=$this->model;
-                $this->options['options'][$model->mid]=['disabled' => true];
             }
-
         }
+
 
         $this->_inputStr='<div class="form-group">';
 

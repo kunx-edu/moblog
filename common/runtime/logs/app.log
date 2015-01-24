@@ -12645,3 +12645,134 @@ $_SERVER = [
     'REQUEST_TIME_FLOAT' => 1422025216.201
     'REQUEST_TIME' => 1422025216
 ]
+2015-01-24 23:41:13 [192.168.10.1][1][-][error][yii\base\ErrorException:2] exception 'yii\base\ErrorException' with message 'Invalid argument supplied for foreach()' in /web_data/blog/common/widgets/CategoryCheckboxList.php:43
+Stack trace:
+#0 /web_data/blog/common/widgets/CategoryCheckboxList.php(43): yii\base\ErrorHandler->handleError(2, 'Invalid argumen...', '/web_data/blog/...', 43, Array)
+#1 /web_data/blog/vendor/yiisoft/yii2/base/Object.php(107): common\widgets\CategoryCheckboxList->init()
+#2 [internal function]: yii\base\Object->__construct(Array)
+#3 /web_data/blog/vendor/yiisoft/yii2/di/Container.php(368): ReflectionClass->newInstanceArgs(Array)
+#4 /web_data/blog/vendor/yiisoft/yii2/di/Container.php(147): yii\di\Container->build('common\\widgets\\...', Array, Array)
+#5 /web_data/blog/vendor/yiisoft/yii2/BaseYii.php(344): yii\di\Container->get('common\\widgets\\...', Array, Array)
+#6 /web_data/blog/vendor/yiisoft/yii2/base/Widget.php(95): yii\BaseYii::createObject(Array)
+#7 /web_data/blog/backend/views/post/_form.php(43): yii\base\Widget::widget(Array)
+#8 /web_data/blog/vendor/yiisoft/yii2/base/View.php(325): require('/web_data/blog/...')
+#9 /web_data/blog/vendor/yiisoft/yii2/base/View.php(247): yii\base\View->renderPhpFile('/web_data/blog/...', Array)
+#10 /web_data/blog/vendor/yiisoft/yii2/base/View.php(149): yii\base\View->renderFile('/web_data/blog/...', Array, NULL)
+#11 /web_data/blog/backend/views/post/create.php(15): yii\base\View->render('_form', Array)
+#12 /web_data/blog/vendor/yiisoft/yii2/base/View.php(325): require('/web_data/blog/...')
+#13 /web_data/blog/vendor/yiisoft/yii2/base/View.php(247): yii\base\View->renderPhpFile('/web_data/blog/...', Array)
+#14 /web_data/blog/vendor/yiisoft/yii2/base/View.php(149): yii\base\View->renderFile('/web_data/blog/...', Array, Object(backend\controllers\PostController))
+#15 /web_data/blog/vendor/yiisoft/yii2/base/Controller.php(367): yii\base\View->render('create', Array, Object(backend\controllers\PostController))
+#16 /web_data/blog/backend/controllers/PostController.php(63): yii\base\Controller->render('create', Array)
+#17 [internal function]: backend\controllers\PostController->actionCreate()
+#18 /web_data/blog/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#19 /web_data/blog/vendor/yiisoft/yii2/base/Controller.php(151): yii\base\InlineAction->runWithParams(Array)
+#20 /web_data/blog/vendor/yiisoft/yii2/base/Module.php(455): yii\base\Controller->runAction('create', Array)
+#21 /web_data/blog/vendor/yiisoft/yii2/web/Application.php(83): yii\base\Module->runAction('post/create', Array)
+#22 /web_data/blog/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#23 /web_data/blog/web/admin.php(19): yii\base\Application->run()
+#24 {main}
+2015-01-24 23:41:01 [192.168.10.1][1][-][info][application] $_GET = [
+    'r' => 'post/create'
+]
+
+$_COOKIE = [
+    '_csrf' => '3a1c9a3e0a0b5d23f75f0e38bb12215b2c0d941e95c6dc8833bf107fe8d3b2b3s:32:\"wrawWZTFAIAqg5jh904t9Sneg2-XQJl_\";'
+    'PHPSESSID' => 'ekcomfmdhoanagu1b1forjhjd7'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => '/admin.php'
+    '__id' => 1
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_REFERER' => 'http://blog.m.com/admin.php'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'HTTP_COOKIE' => '_csrf=3a1c9a3e0a0b5d23f75f0e38bb12215b2c0d941e95c6dc8833bf107fe8d3b2b3s%3A32%3A%22wrawWZTFAIAqg5jh904t9Sneg2-XQJl_%22%3B; PHPSESSID=ekcomfmdhoanagu1b1forjhjd7'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/admin.php'
+    'REMOTE_PORT' => '54710'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=post%2Fcreate'
+    'REQUEST_URI' => '/admin.php?r=post%2Fcreate'
+    'SCRIPT_NAME' => '/admin.php'
+    'PHP_SELF' => '/admin.php'
+    'REQUEST_TIME_FLOAT' => 1422114061.696
+    'REQUEST_TIME' => 1422114061
+]
+2015-01-24 23:44:28 [192.168.10.1][1][-][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "media".' in /web_data/blog/vendor/yiisoft/yii2/base/Module.php:461
+Stack trace:
+#0 /web_data/blog/vendor/yiisoft/yii2/web/Application.php(83): yii\base\Module->runAction('media', Array)
+#1 /web_data/blog/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /web_data/blog/web/admin.php(19): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message '页面未找到。' in /web_data/blog/vendor/yiisoft/yii2/web/Application.php:95
+Stack trace:
+#0 /web_data/blog/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /web_data/blog/web/admin.php(19): yii\base\Application->run()
+#2 {main}
+2015-01-24 23:44:28 [192.168.10.1][1][-][info][application] $_GET = [
+    'r' => 'media'
+]
+
+$_COOKIE = [
+    '_csrf' => '3a1c9a3e0a0b5d23f75f0e38bb12215b2c0d941e95c6dc8833bf107fe8d3b2b3s:32:\"wrawWZTFAIAqg5jh904t9Sneg2-XQJl_\";'
+    'PHPSESSID' => 'ekcomfmdhoanagu1b1forjhjd7'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => '/admin.php'
+    '__id' => 1
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'blog.m.com'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    'HTTP_REFERER' => 'http://blog.m.com/admin.php?r=tag%2Fcreate'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en;q=0.6'
+    'HTTP_COOKIE' => '_csrf=3a1c9a3e0a0b5d23f75f0e38bb12215b2c0d941e95c6dc8833bf107fe8d3b2b3s%3A32%3A%22wrawWZTFAIAqg5jh904t9Sneg2-XQJl_%22%3B; PHPSESSID=ekcomfmdhoanagu1b1forjhjd7'
+    'PATH' => '/sbin:/usr/sbin:/bin:/usr/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.2.15 (CentOS) Server at blog.m.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.2.15 (CentOS)'
+    'SERVER_NAME' => 'blog.m.com'
+    'SERVER_ADDR' => '192.168.10.10'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.10.1'
+    'DOCUMENT_ROOT' => '/web_data/blog/web'
+    'SERVER_ADMIN' => 'webmaster@dummy-host2.example.com'
+    'SCRIPT_FILENAME' => '/web_data/blog/web/admin.php'
+    'REMOTE_PORT' => '54784'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=media'
+    'REQUEST_URI' => '/admin.php?r=media'
+    'SCRIPT_NAME' => '/admin.php'
+    'PHP_SELF' => '/admin.php'
+    'REQUEST_TIME_FLOAT' => 1422114268.081
+    'REQUEST_TIME' => 1422114268
+]

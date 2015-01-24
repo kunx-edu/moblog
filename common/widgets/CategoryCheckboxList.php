@@ -39,14 +39,16 @@ class CategoryCheckboxList extends yii\base\Widget{
         $this->_inputStr='<div class="form-group">';
 
         $this->_inputStr.=Html::label('分类');
+        if(!empty($categoryList)){
+            foreach($categoryList as $v){
 
-        foreach($categoryList as $v){
+                $this->_inputStr.='<div class="checkbox">';
+                $this->_inputStr.=str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v['depth']-1).Html::checkbox('category[]',in_array($v['mid'],$postIds),['label'=>$v['name'],'value'=>$v['mid']]);
+                $this->_inputStr.='</div>';
 
-            $this->_inputStr.='<div class="checkbox">';
-            $this->_inputStr.=str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v['depth']-1).Html::checkbox('category[]',in_array($v['mid'],$postIds),['label'=>$v['name'],'value'=>$v['mid']]);
-            $this->_inputStr.='</div>';
-
+            }
         }
+
 
         $this->_inputStr.='</div>';
 

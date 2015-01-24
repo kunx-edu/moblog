@@ -22,7 +22,7 @@ class BootstrapDatetimePicker extends Widget{
 
     public $options;
 
-    public $language='zh-cn';
+    public $locale='zh-cn';
 
     public $dateFormat='YYYY-MM-DD HH:mm';
 
@@ -78,7 +78,7 @@ class BootstrapDatetimePicker extends Widget{
     public function run(){
         $view=$this->getView();
         \backend\assets\BootstrapDatetimePickerAsset::register($view);
-        $jsStr='$("#'.Html::encode($this->name).'").datetimepicker({language:"'.Html::encode($this->language).'"});';
+        $jsStr='$("#'.Html::encode($this->name).'").datetimepicker({locale:"'.Html::encode($this->locale).'"});';
         $view->registerJs($jsStr);
 
         return $this->_inputStr;
