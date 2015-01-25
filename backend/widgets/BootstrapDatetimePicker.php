@@ -54,7 +54,7 @@ class BootstrapDatetimePicker extends Widget{
 
         $options=$this->options;
         $options['class']='form-control';
-        $options['readonly'] = '';
+        //$options['readonly'] = '';
         $options['value'] = $value;
 
         if($this->hasModel()){
