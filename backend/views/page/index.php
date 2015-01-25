@@ -34,7 +34,7 @@ $this->title = '独立页面';
                     <?=Html::a($v['title'],['update','id'=>$v['cid']])?>
 
                 <td><?=$v['slug']?></td>
-                <td><?=\common\components\UserComp::getInstance()->getUserName($v['authorId'])?></td>
+                <td><?=\common\components\UserComp::getInstance()->getUserScreenName($v['authorId'])?></td>
 
 
                 <td><?=Yii::$app->formatter->asDatetime($v['created'])?></td>
