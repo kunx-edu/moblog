@@ -56,7 +56,6 @@ class BootstrapDatetimePicker extends Widget{
         $options['class']='form-control';
         $options['readonly'] = '';
         $options['value'] = $value;
-        $options['data-date-format']=$this->dateFormat;
 
         if($this->hasModel()){
             $this->_inputStr.=Html::activeTextInput($this->model,$this->attribute,$options);
@@ -78,7 +77,7 @@ class BootstrapDatetimePicker extends Widget{
     public function run(){
         $view=$this->getView();
         \backend\assets\BootstrapDatetimePickerAsset::register($view);
-        $jsStr='$("#'.Html::encode($this->name).'").datetimepicker({locale:"'.Html::encode($this->locale).'"});';
+        $jsStr='$("#'.Html::encode($this->name).'").datetimepicker({locale:"'.Html::encode($this->locale).'",format:"'.$this->dateFormat.'"});';
         $view->registerJs($jsStr);
 
         return $this->_inputStr;
