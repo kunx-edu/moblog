@@ -190,6 +190,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             if($this->scenario=='create'){
                 $this->generatePassword($this->password);
             }elseif($this->scenario=='update'){
+                $this->name=$this->getOldAttribute('name');
                 if(trim($this->password)==''){
                     $this->password= $this->getOldAttribute('password');
                 }else{
