@@ -15,9 +15,9 @@ MoBlog
 
 ###安装###
 
-1.下载或clone源码，导入`common/data/blog.sql`文件到数据库
+1.下载或clone源码，运行`composer install`安装依赖
 
-2.配置`common/config/main-local.php`文件中数据库组件
+2.导入`common/data/blog.sql`文件到数据库,配置`common/config/main-local.php`文件中数据库组件
 
 3.配置nginx或apache网站根目录到`web`文件夹
 
