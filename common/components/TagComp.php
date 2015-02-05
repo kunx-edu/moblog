@@ -14,6 +14,11 @@ use common\models\Relationship;
 class TagComp extends BaseComp{
 
 
+    public function getTagList(){
+
+        return Meta::find()->where(['type'=>Meta::TYPE_TAG])->asArray()->all();
+    }
+
     public function getTagsWithPostId($postId){
 
         $tablePrefix=Yii::$app->db->tablePrefix;
