@@ -42,6 +42,11 @@ use backend\widgets\BootstrapDatetimePicker;
 
         <?=\common\widgets\CategoryCheckboxList::widget(['postId'=>$model->cid])?>
 
+        <?=\backend\widgets\TagsEdit::widget([
+            'name'=>'tags[]',
+            'postId'=>$model->isNewRecord?0:$model->cid,
+        ])?>
+
         <?= $form->field($model, 'status')->dropDownList([
             Content::STATUS_PUBLISH=>'公开',
             Content::STATUS_HIDDEN=>'隐藏',

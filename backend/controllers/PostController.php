@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 
+use common\components\TagComp;
 use Yii;
 use common\models\Content;
 use backend\components\BaseController;
@@ -52,6 +53,7 @@ class PostController extends BaseController
                 if ($model->save()) {
 
                     CategoryComp::getInstance()->insertPostCategory($model->cid,Yii::$app->request->post('category'));
+                    TagComp::getInstance()->insertPostTags($model->cid,Yii::$app->request->post('tags'));
                     return $this->redirect(['index']);
                 }
             }
@@ -78,7 +80,8 @@ class PostController extends BaseController
             if($model->load(Yii::$app->request->post())){
                 $model->type=Content::TYPE_POST;
                 if ($model->save()) {
-                    CategoryComp::getInstance()->insertPostCategory($model->cid,Yii::$app->request->post('category'));//
+                    CategoryComp::getInstance()->insertPostCategory($model->cid,Yii::$app->request->post('category'));
+                    TagComp::getInstance()->insertPostTags($model->cid,Yii::$app->request->post('tags'));
                     return $this->redirect(['index']);
                 }
             }

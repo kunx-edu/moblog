@@ -23,6 +23,15 @@ $this->title = $model->title;
                     <div class="inner markdown-body">
                         <?=\yii\helpers\Markdown::process($model->text)?>
                     </div>
+                    <div>
+                        Tag:
+                        <?php
+                        $postTags=\common\components\TagComp::getInstance()->getTagsWithPostId($model->cid);
+                        foreach($postTags as $val):
+                            ?>
+                            <?=Html::a($val['name'],['site/tag','id'=>$val['mid']],['class'=>'label label-default'])?>
+                        <?php endforeach; ?>
+                    </div>
                     <!--分享插件-->
                 </div>
             </div>

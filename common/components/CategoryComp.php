@@ -168,36 +168,52 @@ class CategoryComp extends BaseComp{
 
 
     //获取文章所属分类
-    public function getCategoryWithPostId($cid){
-
-        $list=Relationship::findAll(['cid'=>$cid]);
+    public function getCategoryWithPostId($postId){
+        $tablePrefix=Yii::$app->db->tablePrefix;
+        $list=Relationship::findAll(['cid'=>$postId]);
+        (new yii\db\Query())
+            ->select('m.mid,m.name')
+            ->from($tablePrefix.'metas m')
+            ->leftJoin($tablePrefix.'relationships r','m.mid = r.mid')
+            ->where([
+                'm.type'=>Meta::TYPE_CATEGORY,
+                'r.cid'=>$postId,
+            ])
+            ->all();
         $categoryArr=[];
         foreach($list as $v){
-            if($this->isCategoryExist($v->mid)){
-                $categoryArr[]=$this->_allCategoryList[$v->mid];
+            if($this->isCategoryExist($v['mid'])){
+                $categoryArr[]=$this->_allCategoryList[$v['mid']];
             }
         }
         return $categoryArr;
     }
 
-    public function insertPostCategory($cid,$category){
+    public function insertPostCategory($postId,$category){
         if(!is_array($category)){
 
             return false;
         }
-        //删除文章的关联分类
-        Relationship::deleteAll(['cid'=>$cid]);
-
-        //todo:更新分类文章数量
-
+        $category=array_unique($category);
+        //获取文章分类
+        $existCategories=$this->getCategoryWithPostId($postId);
+        //删除分类
+        foreach($existCategories as $v){
+            Relationship::deleteAll(['cid'=>$postId,'mid'=>$v['mid']]);
+            //更新分类的文章数
+            Meta::updateAllCounters(['count'=>'-1'],['mid'=>$v['mid']]);
+        }
+        //插入新分类
         foreach($category as $v){
             if(!$this->isCategoryExist($v)){
                 continue;
             }
             $model=new Relationship();
-            $model->cid=$cid;
+            $model->cid=$postId;
             $model->mid=$v;
             $model->insert(false);
+            //更新分类文章数
+            Meta::updateAllCounters(['count'=>1],['mid'=>$v]);
         }
         return true;
 
