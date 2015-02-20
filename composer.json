@@ -21,7 +21,8 @@
         "bower-asset/eonasdan-bootstrap-datetimepicker":"*",
         "npm-asset/bootstrap-markdown":"~2.7",
         "npm-asset/markdown":"*",
-        "fxp/composer-asset-plugin": "1.0.0-beta4"
+        "fxp/composer-asset-plugin": "1.0.0-beta4",
+        "moxiecode/plupload":"*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

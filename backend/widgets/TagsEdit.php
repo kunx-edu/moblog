@@ -54,9 +54,7 @@ class TagsEdit extends yii\base\Widget{
 
         $this->view->registerJs('
 
-        $(".glyphicon-remove").click(function(){
-            $(this).parent().remove();
-        });
+        bindRemoveTag();
 
 
         $(document).keydown(function(event){
@@ -86,16 +84,23 @@ if(exist){
 }
 $("#tag-list").append(\'<div class="label label-default"><input name="'.$this->name.'" type="hidden" value="\'+val+\'"/>\'+val+\'<span class="glyphicon glyphicon-remove"></span></div>\');
 
-$(".glyphicon-remove").bind("click", function() {
+bindRemoveTag();
+return false;
+
+}
+
+}
+
+});
+
+
+function bindRemoveTag(){
+
+$("#tag-list .glyphicon-remove").bind("click", function() {
     $(this).parent().remove();
 });
 
 }
-return false;
-}
-
-
-});
         ');
 
         return $this->_html;

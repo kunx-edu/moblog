@@ -6,10 +6,17 @@ namespace backend\controllers;
 
 use common\components\CategoryComp;
 use common\components\PostComp;
+use common\components\Upload;
+use common\models\Content;
 use Yii;
 
 use backend\components\BaseController;
 use common\models\LoginForm;
+use yii\helpers\FileHelper;
+use yii\helpers\Html;
+use yii\helpers\StringHelper;
+use yii\web\Response;
+use yii\web\UploadedFile;
 
 
 /**
@@ -87,5 +94,44 @@ class SiteController extends BaseController
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    /**
+     * 上传文件
+     * @return array
+     */
+    public function actionUpload(){
+        Yii::$app->response->format=Response::FORMAT_JSON;
+
+        //error ['err'=>1,'msg'=>'error message']
+        //success ['err'=>0,'msg'=>'success message','data'=>['id'=>'','name'=>'','url'=>'','type'=>'','isImage'=>'']]
+        $upload=new Upload();
+        if($upload->checkFileInfoAndSave()){
+
+            $data=[
+                'name'=>Html::encode($upload->originalFileName),
+                'url'=>Yii::getAlias('@web/upload/'.$upload->saveRelativePath),
+                'type'=>$upload->fileExt,
+                'isImage'=>$upload->isImage
+            ];
+
+            //保存到数据库
+            $content=new Content();
+            $content->title=Html::encode($upload->originalFileName);
+            $content->slug=\common\helpers\StringHelper::generateCleanStr($upload->originalFileName).'-'.sha1(microtime(true));
+            $content->created=time();
+            $content->text=json_encode($data);
+            $content->type=Content::TYPE_ATTACHMENT;
+            $content->save(false);
+            $data['id']=$content->cid;
+            return [
+                'err'=>0,
+                'msg'=>'上传成功',
+                'data'=>$data
+            ];
+        }else{
+            return ['err'=>1,'msg'=>$upload->error];
+        }
+
     }
 }

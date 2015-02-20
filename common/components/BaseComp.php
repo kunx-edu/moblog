@@ -9,7 +9,7 @@ class BaseComp extends  \yii\base\Component{
     protected  static $_instance;
 
     /**
-     * @return CategoryComp|PostComp|TagComp|UserComp|PageComp|OptionComp
+     * @return CategoryComp|PostComp|TagComp|UserComp|PageComp|OptionComp|MediaComp
      */
     public static function getInstance()
     {

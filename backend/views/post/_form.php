@@ -34,28 +34,57 @@ use backend\widgets\BootstrapDatetimePicker;
     </div><!-- post -->
 
     <div class="col-md-3">
+        <?=\yii\bootstrap\Tabs::widget([
+            'renderTabContent'=>false,
+            'items'=>[
+                [
+                    'label' => '选项',
+                    'options' => ['id' => 'options'],
+                ],
+                [
+                    'label' => '附件',
+                    'options' => ['id' => 'files'],
+                ],
+            ],
+        ]) ?>
 
-        <?=BootstrapDatetimePicker::widget([
-            'model'=>$model,
-            'attribute'=>'created'
-        ])?>
+        <div class="tab-content">
+            <div id="options" class="tab-pane active">
 
-        <?=\common\widgets\CategoryCheckboxList::widget(['postId'=>$model->cid])?>
+                <?=BootstrapDatetimePicker::widget([
+                    'model'=>$model,
+                    'attribute'=>'created'
+                ])?>
 
-        <?=\backend\widgets\TagsEdit::widget([
-            'name'=>'tags[]',
-            'postId'=>$model->isNewRecord?0:$model->cid,
-        ])?>
+                <?=\common\widgets\CategoryCheckboxList::widget(['postId'=>$model->cid])?>
 
-        <?= $form->field($model, 'status')->dropDownList([
-            Content::STATUS_PUBLISH=>'公开',
-            Content::STATUS_HIDDEN=>'隐藏',
-        ],['id'=>'visibility']) ?>
+                <?=\backend\widgets\TagsEdit::widget([
+                    'name'=>'tags[]',
+                    'postId'=>$model->isNewRecord?0:$model->cid,
+                ])?>
+
+                <?= $form->field($model, 'status')->dropDownList([
+                    Content::STATUS_PUBLISH=>'公开',
+                    Content::STATUS_HIDDEN=>'隐藏',
+                ],['id'=>'visibility']) ?>
 
 
-        <?= $form->field($model, 'allowComment')->checkbox() ?>
-        <?= $form->field($model, 'allowPing')->checkbox() ?>
-        <?= $form->field($model, 'allowFeed')->checkbox() ?>
+                <?= $form->field($model, 'allowComment')->checkbox() ?>
+                <?= $form->field($model, 'allowPing')->checkbox() ?>
+                <?= $form->field($model, 'allowFeed')->checkbox() ?>
+
+
+            </div>
+            <div id="files" class="tab-pane">
+                <?=\backend\widgets\Plupload::widget([
+                    'postId'=>$model->cid,
+                    'fileInputName'=>'file',
+                    'filesInputHiddenName'=>'files[]',
+                    'serverUrl'=>Yii::$app->urlManager->createUrl('site/upload')
+                ])?>
+            </div>
+        </div>
+
 
     </div>
     <?php ActiveForm::end(); ?>

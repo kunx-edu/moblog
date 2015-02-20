@@ -22,7 +22,7 @@ class BootstrapMarkdown extends yii\base\Widget{
 
     public function init(){
 
-        $this->options['data-provide']='markdown';
+        $this->options['id']='markdown-textarea';
         if(!$this->language){
             $this->language='en';
         }
@@ -31,6 +31,12 @@ class BootstrapMarkdown extends yii\base\Widget{
     public function run(){
 
         BootstrapMarkdownAsset::register($this->view);
+
+        $this->view->registerJs('
+            var markdown=$("#markdown-textarea").markdown({autofocus:true});
+
+        ');
+
         return Html::activeTextarea($this->model,$this->attribute,$this->options);
     }
 }

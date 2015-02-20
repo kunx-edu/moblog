@@ -2,7 +2,7 @@
 /**
  * @author: mojifan [<https://github.com/mojifan>]
  */
-
+defined('CODING') or define('CODING',true);
 $config=[];
 
 if(isset($_ENV["DATABASE_URL"])){

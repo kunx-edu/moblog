@@ -39,6 +39,7 @@ class BaseController extends Controller{
                 'actions' => [
                     'logout' => ['post'],
                     'delete' => ['post'],
+                    'upload'=>['post'],
                 ],
             ],
         ];

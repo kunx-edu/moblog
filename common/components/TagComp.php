@@ -67,7 +67,7 @@ class TagComp extends BaseComp{
                 $model->cid=$postId;
                 $model->mid=$v;
                 $model->insert(false);
-                //更新分类文章数
+                //更新标签文章数
                 Meta::updateAllCounters(['count'=>1],['mid'=>$v]);
             }
         }

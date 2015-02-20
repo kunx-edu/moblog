@@ -19,6 +19,12 @@ return [
             'thousandSeparator' => ' ',
             'currencyCode' => 'RMB',
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => true,
+
+        ],
 
     ],
+
 ];

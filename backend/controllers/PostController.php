@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 
+use common\components\MediaComp;
 use common\components\TagComp;
 use Yii;
 use common\models\Content;
@@ -54,6 +55,7 @@ class PostController extends BaseController
 
                     CategoryComp::getInstance()->insertPostCategory($model->cid,Yii::$app->request->post('category'));
                     TagComp::getInstance()->insertPostTags($model->cid,Yii::$app->request->post('tags'));
+                    MediaComp::getInstance()->insertPostMedia($model->cid,Yii::$app->request->post('files'));
                     return $this->redirect(['index']);
                 }
             }
@@ -82,6 +84,7 @@ class PostController extends BaseController
                 if ($model->save()) {
                     CategoryComp::getInstance()->insertPostCategory($model->cid,Yii::$app->request->post('category'));
                     TagComp::getInstance()->insertPostTags($model->cid,Yii::$app->request->post('tags'));
+                    MediaComp::getInstance()->insertPostMedia($model->cid,Yii::$app->request->post('files'));
                     return $this->redirect(['index']);
                 }
             }
