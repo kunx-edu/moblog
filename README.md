@@ -1,6 +1,7 @@
 MoBlog
 ===================================
-
+###截图###
+![Snip20150220_1.png](./Snip20150220_1.png "Snip20150220_1.png")
 ###演示###
 
 网址： [http://moblog.coding.io/](http://moblog.coding.io/)
