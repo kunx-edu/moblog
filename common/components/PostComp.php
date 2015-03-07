@@ -58,11 +58,11 @@ class PostComp extends BaseComp{
         if(!$model){
             return false;
         }
-        //删除文章的关联分类
-        Relationship::deleteAll(['cid'=>$cid]);
-
-        //todo:更新分类文章数
-
+        //删除文章的关联分类和tag
+        CategoryComp::getInstance()->delCategoryWithPostId($cid);
+        TagComp::getInstance()->delTagsWithPostId($cid);
+        //删除附件
+        MediaComp::getInstance()->delMediaWithPostId($cid);
         return $model->delete();
     }
 

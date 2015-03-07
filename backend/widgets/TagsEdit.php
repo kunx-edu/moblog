@@ -27,7 +27,7 @@ class TagsEdit extends yii\base\Widget{
         $tags=TagComp::getInstance()->getTagsWithPostId($this->postId);
 
         $this->_html='<div class="form-group">
-<label for="" class="control-label">标签</label>
+<label for="" class="control-label">标签[回车添加]</label>
 <div id="tag-list">';
 
         if($tags){

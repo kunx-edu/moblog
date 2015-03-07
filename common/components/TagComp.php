@@ -49,15 +49,8 @@ class TagComp extends BaseComp{
 
             return false;
         }
-        //获取文章标签
-        $existTags=$this->getTagsWithPostId($postId);
-        //删除分类
-        foreach($existTags as $v){
-            Relationship::deleteAll(['cid'=>$postId,'mid'=>$v['mid']]);
-            //更新标签的文章数
-            Meta::updateAllCounters(['count'=>'-1'],['mid'=>$v['mid']]);
-        }
 
+        $this->delTagsWithPostId($postId);//先删除标签
         //插入新标签
         $tagIds=$this->scanTags($tags);
         if($tagIds){
@@ -73,6 +66,21 @@ class TagComp extends BaseComp{
         }
 
         return true;
+    }
+
+    /**
+     * 删除文章的标签
+     * @param integer $postId
+     */
+    public function delTagsWithPostId($postId){
+        //获取文章标签
+        $existTags=$this->getTagsWithPostId($postId);
+        //删除标签
+        foreach($existTags as $v){
+            Relationship::deleteAll(['cid'=>$postId,'mid'=>$v['mid']]);
+            //更新标签的文章数
+            Meta::updateAllCounters(['count'=>'-1'],['mid'=>$v['mid']]);
+        }
     }
 
     //删除标签

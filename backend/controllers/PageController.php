@@ -92,7 +92,9 @@ class PageController extends BaseController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+
+        $this->findModel($id);
+        PageComp::getInstance()->deletePage($id);
 
         return $this->redirect(['index']);
     }

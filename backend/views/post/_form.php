@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 use common\models\Content;
-use backend\widgets\TinyMCE;
 use backend\widgets\BootstrapDatetimePicker;
 
 /* @var $this yii\web\View */

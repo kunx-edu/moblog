@@ -33,6 +33,18 @@ class PageComp extends BaseComp{
     }
 
 
+    public function deletePage($cid){
+
+        $model=Content::findOne(['cid'=>$cid,'type'=>Content::TYPE_PAGE]);
+        if(!$model){
+            return false;
+        }
+        //删除附件
+        MediaComp::getInstance()->delMediaWithPostId($cid);
+        return $model->delete();
+    }
+
+
 
 
 

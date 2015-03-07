@@ -195,14 +195,7 @@ class CategoryComp extends BaseComp{
             return false;
         }
         $category=array_unique($category);
-        //获取文章分类
-        $existCategories=$this->getCategoryWithPostId($postId);
-        //删除分类
-        foreach($existCategories as $v){
-            Relationship::deleteAll(['cid'=>$postId,'mid'=>$v['mid']]);
-            //更新分类的文章数
-            Meta::updateAllCounters(['count'=>'-1'],['mid'=>$v['mid']]);
-        }
+        $this->delCategoryWithPostId($postId);//先删除文章分类
         //插入新分类
         foreach($category as $v){
             if(!$this->isCategoryExist($v)){
@@ -217,6 +210,21 @@ class CategoryComp extends BaseComp{
         }
         return true;
 
+    }
+
+    /**
+     * 删除文章分类
+     * @param integer $postId 文章id
+     */
+    public function delCategoryWithPostId($postId){
+        //获取文章分类
+        $existCategories=$this->getCategoryWithPostId($postId);
+        //删除分类
+        foreach($existCategories as $v){
+            Relationship::deleteAll(['cid'=>$postId,'mid'=>$v['mid']]);
+            //更新分类的文章数
+            Meta::updateAllCounters(['count'=>'-1'],['mid'=>$v['mid']]);
+        }
     }
 
     public function getCategoryCount(){

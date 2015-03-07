@@ -58,4 +58,8 @@ class MediaComp extends BaseComp{
         return Content::find()->select('cid,title,text,authorId,created,parent')->where($whereArr)->orderBy('cid desc')->asArray()->all();
     }
 
+    public function delMediaWithPostId($postId){
+        Content::deleteAll(['type'=>Content::TYPE_ATTACHMENT,'parent'=>$postId]);
+    }
+
 }
