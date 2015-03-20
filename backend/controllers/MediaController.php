@@ -2,16 +2,16 @@
 
 namespace backend\controllers;
 
+use backend\components\BaseController;
 use common\components\MediaComp;
 use Yii;
 use common\models\Content;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\data\Pagination;
 /**
  * MediaController implements the CRUD actions for Content model.
  */
-class MediaController extends Controller
+class MediaController extends BaseController
 {
 
     /**
