@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\helpers\StringHelper;
+use common\queries\ContentQuery;
 use Yii;
 use yii\helpers\Html;
 
@@ -27,14 +28,17 @@ use yii\helpers\Html;
  * @property string $allowFeed
  * @property integer $parent
  */
-class Content extends \yii\db\ActiveRecord
+abstract class Content extends \yii\db\ActiveRecord
 {
-    const TYPE_POST='post';
-    const TYPE_PAGE='page';
-    const TYPE_ATTACHMENT='attachment';
+
+    //const TYPE_POST='post';
+    //const TYPE_PAGE='page';
+    //const TYPE_ATTACHMENT='attachment';
 
     const STATUS_PUBLISH='publish';
     const STATUS_HIDDEN='hidden';
+
+    const TYPE='';
     /**
      * @inheritdoc
      */
@@ -43,43 +47,7 @@ class Content extends \yii\db\ActiveRecord
         return '{{%contents}}';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['title', 'slug'], 'string', 'max' => 200],
-            [['slug'],'filter','filter'=>function($value){
-               return StringHelper::generateCleanStr($value);
-            }],
-            [['slug'], 'unique'],
-            [['title'],'default','value'=>function($model,$attribute){
-                $title='未命名文档';
-                if($model->type==self::TYPE_PAGE){
-                    $title='未命名页面';
-                }
-                return $title;
-            }],
-            [['title'],'filter','filter'=>function($value){
-                return Html::encode($value);
-            }],
-            [['order','allowComment', 'allowPing', 'allowFeed'],'filter','filter'=>function($value){
-                return intval($value);
-            }],
-            [['status'],'filter','filter'=>function($value){
-                return in_array($value,[self::STATUS_PUBLISH,self::STATUS_HIDDEN])?$value:self::STATUS_PUBLISH;
-            }],
-            [['created'],'filter','filter'=>function($value){
-                if($value==''){
-                    return time();
-                }else{
-                    return strtotime($value);
-                }
-            }],
-            [['text', 'modified', 'authorId', 'commentsNum', 'parent','type','template', 'password'], 'safe'],
-        ];
-    }
+
 
     /**
      * @inheritdoc
@@ -94,7 +62,7 @@ class Content extends \yii\db\ActiveRecord
             'modified' => '修改日期',
             'text' => '内容',
             'order' => '页面顺序',
-            'authorId' => '作者ID',
+            'authorId' => '作者',
             'template' => '模板',
             'type' => '类型',
             'status' => '公开度',
@@ -103,19 +71,16 @@ class Content extends \yii\db\ActiveRecord
             'allowComment' => '允许评论',
             'allowPing' => '允许被引用',
             'allowFeed' => '允许在聚合中出现',
-            'parent' => 'Parent',
+            'parent' => '所属文章',
         ];
     }
-
     public function beforeSave($insert){
         if(parent::beforeSave($insert)){
 
             if($insert){
 
                 $this->authorId=Yii::$app->user->identity->getId();
-                $this->commentsNum=0;
-            }else{
-                $this->authorId=$this->getOldAttribute('authorId');
+                $this->type=static::TYPE;
             }
 
             $this->modified=time();
@@ -127,14 +92,20 @@ class Content extends \yii\db\ActiveRecord
     }
 
     public function afterSave($insert, $changedAttributes){
-
+        parent::afterSave($insert,$changedAttributes);
         //更新slug
-        if($this->slug==''){
+        if(trim($this->slug)==''){
             $this->slug=$this->cid;
-            $this->update(false);
+            Content::updateAll(['slug'=>$this->cid],['cid'=>$this->cid]);
         }
     }
 
+    public static function find(){
+        return new ContentQuery(get_called_class(),['contentType'=>static::TYPE]);
+    }
 
+    public function getAuthor(){
+        return $this->hasOne(User::className(),['uid'=>'authorId']);
+    }
 
 }

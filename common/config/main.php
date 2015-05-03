@@ -1,6 +1,6 @@
 <?php
 return [
-
+    'name'=>'MoBlog',
     'language'=>'zh-CN',
     'timeZone'=>'Asia/Shanghai',
     'runtimePath'=>'@common/runtime',
@@ -15,9 +15,9 @@ return [
             'dateFormat' => 'yyyy-MM-dd',
             'timeFormat' => 'HH:mm',
             'datetimeFormat' => 'yyyy-MM-dd HH:mm',
-            'decimalSeparator' => ',',
-            'thousandSeparator' => ' ',
-            'currencyCode' => 'RMB',
+            'decimalSeparator' => '.',
+            'thousandSeparator' => ',',
+            'currencyCode' => '&yen;',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,

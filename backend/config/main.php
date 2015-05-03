@@ -8,7 +8,6 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
-    'name'=>'MoBlog',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -30,6 +29,7 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'frontendUrlManager' => require(__DIR__ . '/../../common/config/FrontendUrlManager.php'),
     ],
     'params' => $params,
 ];

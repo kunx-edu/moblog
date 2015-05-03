@@ -4,19 +4,16 @@
  */
 namespace backend\controllers;
 
-use common\components\CategoryComp;
-use common\components\PostComp;
 use common\components\Upload;
-use common\models\Content;
+use common\models\Attachment;
+use common\models\Category;
+use common\models\Post;
 use Yii;
 
 use backend\components\BaseController;
 use common\models\LoginForm;
-use yii\helpers\FileHelper;
 use yii\helpers\Html;
-use yii\helpers\StringHelper;
 use yii\web\Response;
-use yii\web\UploadedFile;
 
 
 /**
@@ -45,10 +42,10 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
-        $recentPublishedPost=PostComp::getInstance()->recentPublishedPost(10);
-        $postCount=PostComp::getInstance()->getPostCount(false);
-        $categoryCount=CategoryComp::getInstance()->getCategoryCount();
-        //todo: 评论数量 最新回复 官方日志
+        $recentPublishedPost=Post::find()->selectNoText()->recentPublished()->all();
+        $postCount=Post::find()->published()->count();
+        $categoryCount=Category::find()->count();
+        //todo: 评论数量 最新回复
         return $this->render('index',[
             'recentPublishedPost'=>$recentPublishedPost,
             'postCount'=>$postCount,
@@ -61,7 +58,18 @@ class SiteController extends BaseController
      * @return string
      */
     public function actionProfile(){
-        return $this->render('profile');
+        $model=Yii::$app->user->identity;
+        $model->scenario='profile';
+
+        if(Yii::$app->request->isPost){
+
+            if($model->load(Yii::$app->request->post())&&$model->save()){
+                return $this->redirect(['profile']);
+            }
+
+        }
+
+        return $this->render('profile',['model'=>$model]);
     }
 
 
@@ -104,31 +112,33 @@ class SiteController extends BaseController
         Yii::$app->response->format=Response::FORMAT_JSON;
 
         //error ['err'=>1,'msg'=>'error message']
-        //success ['err'=>0,'msg'=>'success message','data'=>['id'=>'','name'=>'','url'=>'','type'=>'','isImage'=>'']]
-        $upload=new Upload();
+        //success ['err'=>0,'msg'=>'success message','data'=>['id'=>'','name'=>'','url'=>'','isImage'=>'']]
+        $upload=new Upload([
+            'savePath'=>Attachment::SAVE_PATH,
+        ]);
         if($upload->checkFileInfoAndSave()){
-
-            $data=[
-                'name'=>Html::encode($upload->originalFileName),
-                'url'=>Yii::getAlias('@web/upload/'.$upload->saveRelativePath),
-                'type'=>$upload->fileExt,
-                'isImage'=>$upload->isImage
-            ];
-
             //保存到数据库
-            $content=new Content();
-            $content->title=Html::encode($upload->originalFileName);
-            $content->slug=\common\helpers\StringHelper::generateCleanStr($upload->originalFileName).'-'.sha1(microtime(true));
-            $content->created=time();
-            $content->text=json_encode($data);
-            $content->type=Content::TYPE_ATTACHMENT;
-            $content->save(false);
-            $data['id']=$content->cid;
+            $attachment=new Attachment();
+            $attachment->title=$upload->originalFileName;
+            $attachment->text=[
+                'name'=>Html::encode($upload->originalFileName),
+                'path'=>Yii::getAlias(Attachment::WEB_URL.$upload->saveRelativePath),
+                'minetype'=>$upload->fileMimeType,
+                'ext'=>$upload->fileExt,
+                'size'=>$upload->filesize,
+            ];
+            $attachment->save(false);
             return [
                 'err'=>0,
                 'msg'=>'上传成功',
-                'data'=>$data
+                'data'=>[
+                    'id'=>$attachment->cid,
+                    'name'=>Html::encode($upload->originalFileName),
+                    'url'=>Yii::getAlias(Attachment::WEB_URL.$upload->saveRelativePath),
+                    'isImage'=>in_array($upload->fileMimeType,Attachment::$imageMineType),
+                ],
             ];
+
         }else{
             return ['err'=>1,'msg'=>$upload->error];
         }

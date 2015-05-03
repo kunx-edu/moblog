@@ -4,8 +4,6 @@
  */
 namespace common\models;
 
-use common\components\Option;
-use common\components\OptionComp;
 use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
@@ -22,10 +20,10 @@ class OptionGeneralForm extends Model
 
 
     public function init(){
-        $optionList=OptionComp::getInstance()->getOptionList();
-        $this->title=$optionList['title'];
-        $this->description=$optionList['description'];
-        $this->keywords=$optionList['keywords'];
+        $options=Option::getOptions();
+        $this->title=$options['title'];
+        $this->description=$options['description'];
+        $this->keywords=$options['keywords'];
 
     }
     /**
@@ -59,7 +57,7 @@ class OptionGeneralForm extends Model
             return false;
         }
 
-        OptionComp::getInstance()->updateOption(ArrayHelper::toArray($this));
+        Option::updateOption(ArrayHelper::toArray($this));
         return true;
     }
 }

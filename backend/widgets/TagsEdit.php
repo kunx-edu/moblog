@@ -14,7 +14,7 @@ class TagsEdit extends yii\base\Widget{
 
     public $name;
 
-    public $postId;
+    public $tags;
 
     private $_html;
 
@@ -24,20 +24,15 @@ class TagsEdit extends yii\base\Widget{
             throw new yii\base\InvalidConfigException();
         }
 
-        $tags=TagComp::getInstance()->getTagsWithPostId($this->postId);
-
         $this->_html='<div class="form-group">
 <label for="" class="control-label">标签[回车添加]</label>
 <div id="tag-list">';
 
-        if($tags){
-            foreach($tags as $v){
-
+        if($this->tags){
+            foreach($this->tags as $v){
                 $this->_html.='<div class="label label-default">
-<input name="'.$this->name.'" type="hidden" value="'.$v['name'].'"/>
-'.$v['name'].'<span class="glyphicon glyphicon-remove"></span></div>';
-
-
+<input name="'.$this->name.'" type="hidden" value="'.$v->name.'"/>
+'.$v->name.'<span class="glyphicon glyphicon-remove"></span></div>';
             }
         }
 

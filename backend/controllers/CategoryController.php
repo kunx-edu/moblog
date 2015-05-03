@@ -2,12 +2,12 @@
 
 namespace backend\controllers;
 
+use common\models\Category;
 use Yii;
-use common\models\Meta;
 use backend\components\BaseController;
+use yii\base\InvalidValueException;
 use yii\web\NotFoundHttpException;
-
-use common\components\CategoryComp;
+use yii\data\ActiveDataProvider;
 
 /**
  * CategoryController implements the CRUD actions for Meta model.
@@ -19,16 +19,25 @@ class CategoryController extends BaseController
      * Lists all Meta models.
      * @return mixed
      */
-    public function actionIndex($parent=0)
+    public function actionIndex($parent='0')
     {
 
-        $parent=intval($parent);
-        if($parent!=0&&!CategoryComp::getInstance()->isCategoryExist($parent)){
-
-            throw new NotFoundHttpException;
+        if(!ctype_digit($parent)){
+            throw new InvalidValueException();
+        }
+        $parentCategory=null;
+        if($parent!=0){
+            $parentCategory=$this->findModel($parent);
         }
 
-        return $this->render('index',['dataList'=>CategoryComp::getInstance()->getSubCategoryList($parent)]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Category::find()->andWhere('parent=:parent',[':parent'=>$parent])->orderByMid(),
+        ]);
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'parentCategory'=>$parentCategory,
+
+        ]);
     }
 
 
@@ -40,15 +49,13 @@ class CategoryController extends BaseController
     public function actionCreate($parent=0)
     {
 
-        $model = new Meta();
+        $model = new Category();
 
         $model->parent=intval($parent);
-
 
         if(Yii::$app->request->isPost){
 
             if($model->load(Yii::$app->request->post())){
-                $model->type=Meta::TYPE_CATEGORY;
                 if ($model->save()) {
                     return $this->redirect(['index']);
                 }
@@ -72,7 +79,6 @@ class CategoryController extends BaseController
     {
         $model = $this->findModel($id);
 
-
         if(Yii::$app->request->isPost){
 
             if($model->load(Yii::$app->request->post())&&$model->save()){
@@ -95,10 +101,7 @@ class CategoryController extends BaseController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id);
-
-        CategoryComp::getInstance()->deleteCategory($id);
-
+        $this->findModel($id)->delete();
         $this->redirect(['index']);
     }
 
@@ -106,12 +109,12 @@ class CategoryController extends BaseController
      * Finds the Meta model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Meta the loaded model
+     * @return Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Meta::findOne(['mid'=>$id,'type'=>Meta::TYPE_CATEGORY])) !== null) {
+        if (($model = Category::find()->andWhere('mid=:mid',[':mid'=>$id])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

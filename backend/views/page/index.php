@@ -14,49 +14,32 @@ $this->title = '独立页面';
         <?= Html::a('新增', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th></th>
-            <th>标题</th>
-            <th>缩略名</th>
-            <th>作者</th>
-            <th>日期</th>
-            <th>&nbsp;</th>
-        </tr>
-        </thead>
-        <tbody>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => \yii\grid\CheckboxColumn::className()],
+            [
+                'header'=>'标题',
+                'class' => yii\grid\Column::className(),
+                'content'=>function ($model, $key, $index, $column){
+                    return $model->title.'&nbsp;'.Html::a('<span class="glyphicon glyphicon-link"></span>',Yii::$app->frontendUrlManager->createUrl(['site/page','slug'=>$model->slug]),['target'=>'_blank','title'=>'查看']);
+                }
+            ],
+            'slug',
+            [
+                'attribute'=>'authorId',
+                'value'=>function($model){
+                    return $model->author==null?'-':$model->author->screenName;
+                },
+            ],
+            'created:datetime',
 
-        <?php foreach($dataList as $v): ?>
-            <tr>
-                <td><?=Html::checkbox('cid[]',false,['value'=>$v['cid']])?></td>
-                <td>
-                    <?=Html::a($v['title'],['update','id'=>$v['cid']])?>
-
-                <td><?=$v['slug']?></td>
-                <td><?=\common\components\UserComp::getInstance()->getUserScreenName($v['authorId'])?></td>
-
-
-                <td><?=Yii::$app->formatter->asDatetime($v['created'])?></td>
-                <td>
-                    <?=Html::a('<span class="glyphicon glyphicon-trash"></span>',['delete','id'=>$v['cid']],[
-                        'title'=>'删除',
-                        'data'=>[
-                            'pjax'=>0,
-                            'method'=>'post',
-                            'confirm'=>'您确定要删除此项吗？',
-                        ]
-                    ])?>
-
-                </td>
-            </tr>
-        <?php endforeach; ?>
-
-
-        </tbody>
-    </table>
-    <?=\yii\widgets\LinkPager::widget([
-        'pagination'=>$pages,
-    ])?>
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template'=>'{update} {delete}',
+            ],
+        ],
+        'tableOptions'=>['class' => 'table table-striped']
+    ]); ?>
 
 </div>

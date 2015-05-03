@@ -40,8 +40,6 @@ AppAsset::register($this);
                     ['label'=>'控制台','items'=>[
                         ['label' => '概要', 'url' => ['/site/index']],
                         ['label' => '个人设置', 'url' => ['/site/profile']],
-                        ['label' => '插件', 'url' => ['/plugin']],
-                        ['label' => '外观', 'url' => ['/theme']],
                     ]],
                     ['label'=>'撰写','items'=>[
                         ['label' => '撰写文章', 'url' => ['/post/create']],
@@ -58,9 +56,6 @@ AppAsset::register($this);
                     ]],
                     ['label'=>'设置','items'=>[
                         ['label' => '基本', 'url' => ['/option/index']],
-                        ['label' => '评论', 'url' => ['/option/discussion']],
-                        ['label' => '阅读', 'url' => ['/option/reading']],
-                        ['label' => '永久链接', 'url' => ['/option/permalink']],
                     ]],
                 ];
 
@@ -70,7 +65,7 @@ AppAsset::register($this);
                         'url' => ['/site/logout'],
                         'linkOptions' => ['data-method' => 'post']
                     ],
-                    ['label' => '网站', 'url' => ['/site/index']],
+                    ['label' => '网站', 'url' => Yii::$app->frontendUrlManager->getHostInfo(),'linkOptions'=>['target'=>'_blank']],
                 ];
             }
         echo Nav::widget([

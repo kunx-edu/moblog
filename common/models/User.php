@@ -55,21 +55,23 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['name','mail','password'],'required','on'=>['create']],
-            [['name','mail'],'required','on'=>'update'],
+            [['mail'],'required','on'=>['update','profile']],
             [['password'], 'string', 'min' => 6,'max'=>20],
-            [['name', 'screenName'], 'string', 'max' => 32],
-            [['name', 'screenName'], 'checkName', 'skipOnEmpty'=>false],
+            [['name'], 'string', 'max' => 32,'on'=>['create']],
+            [['screenName'], 'string', 'max' => 32],
+            [['name'], 'checkName','on'=>['create']],
+            [['screenName'], 'checkName', 'skipOnEmpty'=>false],
             [['mail'],'email'],
             [['url'],'url'],
             [['mail', 'url'], 'string', 'max' => 200],
-            [['name','mail','screenName'], 'unique'],
+            [['name'], 'unique','on'=>['create']],
+            [['mail','screenName'], 'unique'],
             [['group'],'filter','filter'=>function($value){
                 if(!array_key_exists($value,self::getUserGroup())){
                     return self::GROUP_VISITOR;
                 }
                 return $value;
-            }],
-            [['created', 'activated', 'logged','authCode'], 'safe'],
+            },'on'=>['create','update']],
 
         ];
     }
@@ -175,7 +177,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function checkName($attribute, $params){
 
         if (!$this->hasErrors()) {
-            if(($attribute!='screenName')||($attribute=='screenName'&&$this->$attribute!='')){
+            if(($attribute=='name')||($attribute=='screenName'&&$this->$attribute!='')){
                 if(!StringHelper::checkCleanStr($this->$attribute)){
                     $this->addError($attribute, $this->getAttributeLabel($attribute).'只能为数字字母下划线横线');
                 }
@@ -189,8 +191,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         if(parent::beforeSave($insert)){
             if($this->scenario=='create'){
                 $this->generatePassword($this->password);
-            }elseif($this->scenario=='update'){
-                $this->name=$this->getOldAttribute('name');
+            }elseif($this->scenario=='update'||$this->scenario='profile'){
                 if(trim($this->password)==''){
                     $this->password= $this->getOldAttribute('password');
                 }else{
@@ -209,5 +210,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         }else{
             return false;
         }
+    }
+
+    public function getPosts($isPublished=true){
+        $query=$this->hasMany(Post::className(),['authorId'=>'uid'])->with('categories')->with('tags')->with('author')->orderByCid();
+        if($isPublished){
+            return $query->published();
+        }
+        return $query;
+
     }
 }

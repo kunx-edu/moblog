@@ -1,16 +1,12 @@
 {
-    "name": "yiisoft/yii2-app-advanced",
-    "description": "Yii 2 Advanced Application Template",
-    "keywords": ["yii2", "framework", "advanced", "application template"],
-    "homepage": "http://www.yiiframework.com/",
+    "name": "MoBlog",
+    "description": "一个基于Yii2的博客系统",
+    "keywords": ["moblog", "yii2"],
+    "homepage": "https://github.com/mojifan/MoBlog",
     "type": "project",
-    "license": "BSD-3-Clause",
+    "license": "MIT",
     "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2"
+        "source": "https://github.com/mojifan/MoBlog"
     },
     "minimum-stability": "stable",
     "require": {
@@ -21,7 +17,7 @@
         "bower-asset/eonasdan-bootstrap-datetimepicker":"*",
         "npm-asset/bootstrap-markdown":"~2.7",
         "npm-asset/markdown":"*",
-        "fxp/composer-asset-plugin": "1.0.0-beta4",
+        "fxp/composer-asset-plugin": "*",
         "moxiecode/plupload":"*"
     },
     "require-dev": {

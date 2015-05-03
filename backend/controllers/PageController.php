@@ -2,12 +2,11 @@
 
 namespace backend\controllers;
 
+use common\models\Page;
 use Yii;
-use common\models\Content;
 use backend\components\BaseController;
 use yii\web\NotFoundHttpException;
-use yii\data\Pagination;
-use common\components\PageComp;
+use yii\data\ActiveDataProvider;
 
 /**
  * PageController implements the CRUD actions for Content model.
@@ -21,11 +20,12 @@ class PageController extends BaseController
      */
     public function actionIndex()
     {
-        $pages=new Pagination([
-            'totalCount'=>PageComp::getInstance()->getPageCount(),
+        $dataProvider = new ActiveDataProvider([
+            'query' => Page::find()->selectNoText()->with('author')->orderByCid(),
         ]);
-        $dataList=PageComp::getInstance()->getPageList($pages->offset,$pages->limit);
-        return $this->render('index',['dataList'=>$dataList,'pages'=>$pages]);
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
 
@@ -36,22 +36,19 @@ class PageController extends BaseController
      */
     public function actionCreate()
     {
-        $model = new Content();
+        $model = new Page();
         $model->allowComment=true;
         $model->allowFeed=true;
         $model->allowPing=true;
         if(Yii::$app->request->isPost){
-
             if($model->load(Yii::$app->request->post())){
-                $model->type=Content::TYPE_PAGE;
+                $model->inputAttachments=Yii::$app->request->post('inputAttachments',[]);
                 if ($model->save()) {
 
                     return $this->redirect(['index']);
                 }
             }
-
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -70,7 +67,7 @@ class PageController extends BaseController
         if(Yii::$app->request->isPost){
 
             if($model->load(Yii::$app->request->post())){
-                $model->type=Content::TYPE_PAGE;
+                $model->inputAttachments=Yii::$app->request->post('inputAttachments',[]);
                 if ($model->save()) {
 
                     return $this->redirect(['index']);
@@ -93,9 +90,7 @@ class PageController extends BaseController
     public function actionDelete($id)
     {
 
-        $this->findModel($id);
-        PageComp::getInstance()->deletePage($id);
-
+        $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
 
@@ -103,12 +98,12 @@ class PageController extends BaseController
      * Finds the Content model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Content the loaded model
+     * @return Page the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Content::findOne(['cid'=>$id,'type'=>Content::TYPE_PAGE])) !== null) {
+        if (($model = Page::find()->andWhere(['cid'=>$id])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

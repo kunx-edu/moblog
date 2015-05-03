@@ -2,12 +2,11 @@
 
 namespace backend\controllers;
 
+use common\models\Tag;
 use Yii;
-use common\models\Meta;
 use backend\components\BaseController;
 use yii\web\NotFoundHttpException;
-
-use common\components\TagComp;
+use yii\data\ActiveDataProvider;
 
 /**
  * CategoryController implements the CRUD actions for Meta model.
@@ -21,8 +20,12 @@ class TagController extends BaseController
      */
     public function actionIndex()
     {
-
-        return $this->render('index',['dataList'=>TagComp::getInstance()->getTagList()]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Tag::find()->orderByMid(),
+        ]);
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
 
@@ -31,16 +34,13 @@ class TagController extends BaseController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($parent=0)
+    public function actionCreate()
     {
 
-        $model = new Meta();
-
-
+        $model = new Tag();
         if(Yii::$app->request->isPost){
 
             if($model->load(Yii::$app->request->post())){
-                $model->type=Meta::TYPE_TAG;
                 if ($model->save()) {
                     return $this->redirect(['index']);
                 }
@@ -87,9 +87,7 @@ class TagController extends BaseController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id);
-        TagComp::getInstance()->deleteTag($id);
-
+        $this->findModel($id)->delete();
         $this->redirect(['index']);
     }
 
@@ -97,12 +95,12 @@ class TagController extends BaseController
      * Finds the Meta model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Meta the loaded model
+     * @return Tag the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Meta::findOne(['mid'=>$id,'type'=>Meta::TYPE_TAG])) !== null) {
+        if (($model = Tag::find()->andWhere('mid=:mid',[':mid'=>$id])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

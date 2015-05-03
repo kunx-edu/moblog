@@ -2,11 +2,12 @@
 
 namespace backend\controllers;
 
-use common\components\CategoryComp;
 use Yii;
 use common\models\User;
 use backend\components\BaseController;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -20,9 +21,12 @@ class UserController extends BaseController
      */
     public function actionIndex()
     {
-        $dataList=\common\components\UserComp::getInstance()->getUserList();
-
-        return $this->render('index',['dataList'=>$dataList]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => User::find()->orderBy('uid desc'),
+        ]);
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -57,6 +61,9 @@ class UserController extends BaseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if($model->uid==1){
+            throw new ForbiddenHttpException('禁止操作');
+        }
         $model->scenario='update';
         $model->password='';
         if(Yii::$app->request->isPost){
@@ -80,7 +87,11 @@ class UserController extends BaseController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        if($model->uid==1){
+            throw new ForbiddenHttpException('禁止操作');
+        }
+        $model->delete();
 
         return $this->redirect(['index']);
     }

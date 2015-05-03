@@ -58,14 +58,14 @@ use backend\widgets\BootstrapDatetimePicker;
                 <?=\common\widgets\CategoryCheckboxList::widget(['postId'=>$model->cid])?>
 
                 <?=\backend\widgets\TagsEdit::widget([
-                    'name'=>'tags[]',
-                    'postId'=>$model->isNewRecord?0:$model->cid,
+                    'name'=>'inputTags[]',
+                    'tags'=>$model->isNewRecord?[]:$model->tags,
                 ])?>
 
                 <?= $form->field($model, 'status')->dropDownList([
                     Content::STATUS_PUBLISH=>'公开',
                     Content::STATUS_HIDDEN=>'隐藏',
-                ],['id'=>'visibility']) ?>
+                ]) ?>
 
 
                 <?= $form->field($model, 'allowComment')->checkbox() ?>
@@ -76,9 +76,9 @@ use backend\widgets\BootstrapDatetimePicker;
             </div>
             <div id="files" class="tab-pane">
                 <?=\backend\widgets\Plupload::widget([
-                    'postId'=>$model->cid,
+                    'attachments'=>$model->isNewRecord?[]:$model->attachments,
                     'fileInputName'=>'file',
-                    'filesInputHiddenName'=>'files[]',
+                    'filesInputHiddenName'=>'inputAttachments[]',
                     'serverUrl'=>Yii::$app->urlManager->createUrl('site/upload')
                 ])?>
             </div>

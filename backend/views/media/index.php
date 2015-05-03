@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -10,50 +9,49 @@ $this->title = '管理文件';
 ?>
 <div class="content-index">
 
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th></th>
-            <th>文件名</th>
-            <th>上传者</th>
-            <th>所属文章</th>
-            <th>发布日期</th>
-            <th>&nbsp;</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        <?php foreach($dataList as $v): ?>
-            <tr>
-                <td><?=Html::checkbox('cid[]',false,['value'=>$v['cid']])?></td>
-                <td>
-                    <a href="<?=\common\components\MediaComp::getInstance()->parseMediaContent($v['text'])?>" target="_blank"><?=$v['title']?></a>
-
-                <td><?=\common\components\UserComp::getInstance()->getUserScreenName($v['authorId'])?></td>
-
-                <td><?=$v['parent']?></td>
-
-
-                <td><?=Yii::$app->formatter->asDatetime($v['created'])?></td>
-                <td>
-                    <?=Html::a('<span class="glyphicon glyphicon-trash"></span>',['delete','id'=>$v['cid']],[
-                        'title'=>'删除',
-                        'data'=>[
-                            'pjax'=>0,
-                            'method'=>'post',
-                            'confirm'=>'您确定要删除此项吗？',
-                        ]
-                    ])?>
-
-                </td>
-            </tr>
-        <?php endforeach; ?>
-
-
-        </tbody>
-    </table>
-    <?=\yii\widgets\LinkPager::widget([
-        'pagination'=>$pages,
-    ])?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => \yii\grid\CheckboxColumn::className()],
+            [
+                'attribute'=>'title',
+                'format'=>'html',
+                'value'=>function($model){
+                    return Html::a($model->title,$model->path,['target'=>'_blank']);
+                },
+            ],
+            [
+                'attribute'=>'authorId',
+                'value'=>function($model){
+                    return $model->author==null?'-':$model->author->screenName;
+                },
+            ],
+            [
+                'attribute'=>'parent',
+                'format'=>'html',
+                'value'=>function($model){
+                    $value='-';
+                    if($model->post!=null){
+                        $value=Html::a($model->post->title,['post/update','id'=>$model->post->cid]);
+                    }elseif($model->page!=null){
+                        $value=Html::a($model->page->title,['post/update','id'=>$model->page->cid]);
+                    }
+                    return $value;
+                },
+            ],
+            [
+                'label'=>'文件大小',
+                'value'=>function($model){
+                    return Yii::$app->formatter->asShortSize($model->size);
+                },
+            ],
+            'created:datetime',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template'=>'{delete}',
+            ],
+        ],
+        'tableOptions'=>['class' => 'table table-striped']
+    ]); ?>
 
 </div>

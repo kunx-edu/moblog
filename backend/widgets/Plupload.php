@@ -5,6 +5,7 @@
 namespace backend\widgets;
 
 use common\components\MediaComp;
+use common\models\Attachment;
 use yii;
 
 class Plupload extends yii\base\Widget{
@@ -16,7 +17,8 @@ class Plupload extends yii\base\Widget{
 
     public $filesInputHiddenName;
 
-    public $postId;
+    public $attachments;
+
     private $_html;
 
     public function init(){
@@ -32,8 +34,6 @@ class Plupload extends yii\base\Widget{
             throw new yii\base\InvalidConfigException('serverUrl属性必须设置');
         }
 
-        $mediaArr=MediaComp::getInstance()->getMediaWithPostId($this->postId);
-
         $this->_html='
 <div class="panel panel-default">
   <div class="panel-body">
@@ -43,8 +43,10 @@ class Plupload extends yii\base\Widget{
 <ul class="list-group" id="file-list">
 ';
 
-        foreach($mediaArr as $v){
-            $this->_html.='<li class="list-group-item" id="'.$v['cid'].'"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span><input type="hidden" name="'.$this->filesInputHiddenName.'" value="'.$v['cid'].'"><a href="javascript:;" title="点击插入图片到编辑器" data-url="'.MediaComp::getInstance()->parseMediaContent($v['text']).'" data-image="'.MediaComp::getInstance()->parseMediaContent($v['text'],'isImage').'">'.$v['title'].'</a></li>';
+        if($this->attachments){
+            foreach($this->attachments as $v){
+                $this->_html.='<li class="list-group-item" id="'.$v->cid.'"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true"></span><input type="hidden" name="'.$this->filesInputHiddenName.'" value="'.$v->cid.'"><a href="javascript:;" title="点击插入图片到编辑器" data-url="'.$v->path.'" data-image="'.in_array($v->minetype,Attachment::$imageMineType).'">'.$v->title.'</a></li>';
+            }
         }
         $this->_html.='</ul>';
     }

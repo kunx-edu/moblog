@@ -3,15 +3,11 @@
 namespace backend\controllers;
 
 
-use common\components\MediaComp;
-use common\components\TagComp;
+use common\models\Post;
 use Yii;
-use common\models\Content;
 use backend\components\BaseController;
-use yii\data\Pagination;
 use yii\web\NotFoundHttpException;
-use common\components\PostComp;
-use common\components\CategoryComp;
+use yii\data\ActiveDataProvider;
 
 /**
  * PostController implements the CRUD actions for Content model.
@@ -26,11 +22,14 @@ class PostController extends BaseController
      */
     public function actionIndex()
     {
-        $pages=new Pagination([
-            'totalCount'=>PostComp::getInstance()->getPostCount(),
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Post::find()->selectNoText()->with('categories')->with('author')->orderByCid(),
         ]);
-        $dataList=PostComp::getInstance()->getPostList($pages->offset,$pages->limit);
-        return $this->render('index',['dataList'=>$dataList,'pages'=>$pages]);
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+
     }
 
 
@@ -41,7 +40,7 @@ class PostController extends BaseController
      */
     public function actionCreate()
     {
-        $model = new Content();
+        $model = new Post();
         $model->allowComment=true;
         $model->allowFeed=true;
         $model->allowPing=true;
@@ -49,13 +48,10 @@ class PostController extends BaseController
         if(Yii::$app->request->isPost){
 
             if($model->load(Yii::$app->request->post())){
-                $model->type=Content::TYPE_POST;
-
+                $model->inputCategories=Yii::$app->request->post('inputCategories',[]);
+                $model->inputTags=Yii::$app->request->post('inputTags',[]);
+                $model->inputAttachments=Yii::$app->request->post('inputAttachments',[]);
                 if ($model->save()) {
-
-                    CategoryComp::getInstance()->insertPostCategory($model->cid,Yii::$app->request->post('category'));
-                    TagComp::getInstance()->insertPostTags($model->cid,Yii::$app->request->post('tags'));
-                    MediaComp::getInstance()->insertPostMedia($model->cid,Yii::$app->request->post('files'));
                     return $this->redirect(['index']);
                 }
             }
@@ -80,11 +76,10 @@ class PostController extends BaseController
         if(Yii::$app->request->isPost){
 
             if($model->load(Yii::$app->request->post())){
-                $model->type=Content::TYPE_POST;
+                $model->inputCategories=Yii::$app->request->post('inputCategories',[]);
+                $model->inputTags=Yii::$app->request->post('inputTags',[]);
+                $model->inputAttachments=Yii::$app->request->post('inputAttachments',[]);
                 if ($model->save()) {
-                    CategoryComp::getInstance()->insertPostCategory($model->cid,Yii::$app->request->post('category'));
-                    TagComp::getInstance()->insertPostTags($model->cid,Yii::$app->request->post('tags'));
-                    MediaComp::getInstance()->insertPostMedia($model->cid,Yii::$app->request->post('files'));
                     return $this->redirect(['index']);
                 }
             }
@@ -104,9 +99,7 @@ class PostController extends BaseController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id);
-        PostComp::getInstance()->deletePost($id);
-
+        $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
 
@@ -114,12 +107,12 @@ class PostController extends BaseController
      * Finds the Content model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Content the loaded model
+     * @return Post the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Content::findOne(['cid'=>$id,'type'=>Content::TYPE_POST])) !== null) {
+        if (($model = Post::find()->andWhere(['cid'=>$id])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -3,11 +3,10 @@
 namespace backend\controllers;
 
 use backend\components\BaseController;
-use common\components\MediaComp;
+use common\models\Attachment;
 use Yii;
-use common\models\Content;
 use yii\web\NotFoundHttpException;
-use yii\data\Pagination;
+use yii\data\ActiveDataProvider;
 /**
  * MediaController implements the CRUD actions for Content model.
  */
@@ -20,11 +19,12 @@ class MediaController extends BaseController
      */
     public function actionIndex()
     {
-        $pages=new Pagination([
-            'totalCount'=>MediaComp::getInstance()->getMediaCount(),
+        $dataProvider = new ActiveDataProvider([
+            'query' => Attachment::find()->with('post')->with('page')->with('author')->orderByCid(),
         ]);
-        $dataList=MediaComp::getInstance()->getMediaList($pages->offset,$pages->limit);
-        return $this->render('index',['dataList'=>$dataList,'pages'=>$pages]);
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
 
@@ -46,12 +46,12 @@ class MediaController extends BaseController
      * Finds the Content model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Content the loaded model
+     * @return Attachment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Content::findOne(['cid'=>$id,'type'=>Content::TYPE_ATTACHMENT])) !== null) {
+        if (($model = Attachment::find()->andWhere(['cid'=>$id])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -9,9 +9,6 @@ use common\helpers\FileHelper;
 
 /**
  * Class Upload
- * @property bool isImage
- * @property integer width
- * @property integer height
  * @property string fileMimeType
  * @property string fileExt
  * @property string newFileName
@@ -42,8 +39,6 @@ class Upload extends yii\base\Object{
      */
     private $_uploadFile;
 
-    private $_imageSizeInfo;
-
     private $_newFileName;
 
     private $_saveRelativePath;
@@ -60,7 +55,6 @@ class Upload extends yii\base\Object{
         $this->_uploadFile=UploadedFile::getInstanceByName($this->fileInputName);
 
         if($this->_uploadFile){
-            $this->_imageSizeInfo=getimagesize($this->_uploadFile->tempName);
             $this->fileMimeType=FileHelper::getMimeType($this->_uploadFile->tempName);
         }else{
             $this->error='没有上传文件';
@@ -111,27 +105,6 @@ class Upload extends yii\base\Object{
         return $this->allowMaxSize>=$this->filesize;
     }
 
-    public function getIsImage(){
-        if($this->_uploadFile){
-            return $this->_imageSizeInfo===false?false:true;
-        }
-        return false;
-    }
-
-    public function getWidth(){
-        if($this->_imageSizeInfo){
-            return $this->_imageSizeInfo[0];
-        }
-        return null;
-    }
-
-    public function getHeight(){
-        if($this->_imageSizeInfo){
-            return $this->_imageSizeInfo[1];
-        }
-        return null;
-    }
-
     public function getFileExt(){
         if($this->_uploadFile){
             return $this->_uploadFile->getExtension();
@@ -164,11 +137,11 @@ class Upload extends yii\base\Object{
 
     public function getSaveRelativePath(){
         if(!$this->_saveRelativePath){
-            $subDir=date('Ym');
-            if(!file_exists(Yii::getAlias($this->savePath.'/'.$subDir))){
-                FileHelper::createDirectory(Yii::getAlias($this->savePath.'/'.$subDir));
+            $subDir=date('Ym/');
+            if(!file_exists(Yii::getAlias($this->savePath.$subDir))){
+                FileHelper::createDirectory(Yii::getAlias($this->savePath.$subDir));
             }
-            $this->_saveRelativePath= $subDir.'/'.$this->newFileName;
+            $this->_saveRelativePath= $subDir.$this->newFileName;
 
         }
         return $this->_saveRelativePath;

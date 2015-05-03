@@ -2,9 +2,11 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $model common\models\Content */
 
 $this->title = '文章';
 ?>
@@ -14,47 +16,38 @@ $this->title = '文章';
         <?= Html::a('新增', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th></th>
-            <th>标题</th>
-            <th>作者</th>
-            <th>分类</th>
-            <th>日期</th>
-            <th>&nbsp;</th>
-        </tr>
-        </thead>
-        <tbody>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => \yii\grid\CheckboxColumn::className()],
+            [
+                'header'=>'标题',
+                'class' => yii\grid\Column::className(),
+                'content'=>function ($model, $key, $index, $column){
+                    return $model->title.'&nbsp;'.Html::a('<span class="glyphicon glyphicon-link"></span>',Yii::$app->frontendUrlManager->createUrl(['site/post','id'=>$key]),['target'=>'_blank','title'=>'查看']);
+                }
+            ],
+            [
+                'attribute'=>'authorId',
+                'value'=>function($model){
+                    return $model->author==null?'-':$model->author->screenName;
+                },
+            ],
+            [
+                'label'=>'分类',
+                'value'=>function($model){
+                    $names= ArrayHelper::getColumn(ArrayHelper::toArray($model->categories),'name');
+                    return implode(' ',$names);
+                },
+            ],
+            'created:datetime',
 
-        <?php foreach($dataList as $v): ?>
-            <tr>
-                <td><?=Html::checkbox('cid[]',false,['value'=>$v['cid']])?></td>
-                <td>
-                    <?=Html::a($v['title'],['update','id'=>$v['cid']])?>
-
-                <td><?=\common\components\UserComp::getInstance()->getUserScreenName($v['authorId'])?></td>
-                <td><?=\common\components\PostComp::getInstance()->getPostCategoryName($v['cid'])?></td>
-                <td><?=Yii::$app->formatter->asDatetime($v['created'])?></td>
-                <td>
-                    <?=Html::a('<span class="glyphicon glyphicon-trash"></span>',['delete','id'=>$v['cid']],[
-                        'title'=>'删除',
-                        'data'=>[
-                            'pjax'=>0,
-                            'method'=>'post',
-                            'confirm'=>'您确定要删除此项吗？',
-                        ]
-                    ])?>
-
-                </td>
-            </tr>
-        <?php endforeach; ?>
-
-
-        </tbody>
-    </table>
-    <?=\yii\widgets\LinkPager::widget([
-        'pagination'=>$pages,
-    ])?>
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template'=>'{update} {delete}',
+            ],
+        ],
+        'tableOptions'=>['class' => 'table table-striped']
+    ]); ?>
 
 </div>

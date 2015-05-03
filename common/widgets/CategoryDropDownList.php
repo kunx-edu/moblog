@@ -4,9 +4,9 @@
  */
 namespace common\widgets;
 
+use common\components\CategoryTree;
 use yii;
 use yii\helpers\Html;
-use common\components\CategoryComp;
 
 class CategoryDropDownList extends yii\bootstrap\Widget{
 
@@ -17,7 +17,7 @@ class CategoryDropDownList extends yii\bootstrap\Widget{
     public $currentOptionDisabled=false;//当前选项是否禁止选择
 
 
-    private $_categoryList=[];
+    private $_categories=[];
 
     private $_inputStr;
 
@@ -29,12 +29,12 @@ class CategoryDropDownList extends yii\bootstrap\Widget{
         $this->options['encodeSpaces']=true;
         $this->options['prompt']='不选择';
 
-        $categoryList=CategoryComp::getInstance()->getAllChildren();
-        if(!empty($categoryList)){
-            foreach($categoryList as $v){
+        $categories=CategoryTree::getInstance()->getAllCategories();
+        if(!empty($categories)){
+            foreach($categories as $v){
                 $tempArr=[];
                 $tempArr[$v['mid']]=str_repeat('    ',$v['depth']-1).$v['name'];
-                $this->_categoryList+=$tempArr;
+                $this->_categories+=$tempArr;
 
                 if($this->currentOptionDisabled){
                     $model=$this->model;
@@ -49,7 +49,7 @@ class CategoryDropDownList extends yii\bootstrap\Widget{
 
         $this->_inputStr.=Html::activeLabel($this->model,$this->attribute);
 
-        $this->_inputStr.=Html::activeDropDownList($this->model,$this->attribute,$this->_categoryList,$this->options);
+        $this->_inputStr.=Html::activeDropDownList($this->model,$this->attribute,$this->_categories,$this->options);
 
         $this->_inputStr.='</div>';
 

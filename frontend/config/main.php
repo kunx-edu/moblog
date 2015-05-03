@@ -8,8 +8,6 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
-    'name'=>'墨迹凡',
-
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
@@ -29,6 +27,10 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
+        ],
+        'urlManager' => require(__DIR__ . '/../../common/config/FrontendUrlManager.php'),
+        'view' => [
+            'class' => 'frontend\components\View',
         ],
     ],
     'params' => $params,

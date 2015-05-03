@@ -5,18 +5,16 @@
 
 namespace common\widgets;
 
+use common\components\CategoryTree;
+use common\models\Post;
 use yii;
 use yii\helpers\Html;
-use common\components\CategoryComp;
 
 class CategoryCheckboxList extends yii\base\Widget{
 
     public $postId;
 
     private $_inputStr;
-
-    private $_categoryList=[];
-
 
     public $options;
 
@@ -26,24 +24,23 @@ class CategoryCheckboxList extends yii\base\Widget{
 
         $this->options['encodeSpaces']=true;
 
-        $categoryList=CategoryComp::getInstance()->getAllChildren();
-
-        if($this->postId!=null){
-            $postCategoryList=CategoryComp::getInstance()->getCategoryWithPostId(intval($this->postId));
-
-            $postIds=yii\helpers\ArrayHelper::getColumn($postCategoryList,'mid');
-        }else{
-            $postIds=[];
+        $postCategoryIds=[];
+        if($this->postId!==null){
+            $post=Post::find()->andwhere('cid=:cid',[':cid'=>$this->postId])->one();
+            $postCategories=$post->getCategories()->asArray()->all();
+            $postCategoryIds=yii\helpers\ArrayHelper::getColumn($postCategories,'mid');
         }
+
+        $categories=CategoryTree::getInstance()->getAllCategories();
 
         $this->_inputStr='<div class="form-group">';
 
         $this->_inputStr.=Html::label('分类');
-        if(!empty($categoryList)){
-            foreach($categoryList as $v){
+        if(!empty($categories)){
+            foreach($categories as $v){
 
                 $this->_inputStr.='<div class="checkbox">';
-                $this->_inputStr.=str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v['depth']-1).Html::checkbox('category[]',in_array($v['mid'],$postIds),['label'=>$v['name'],'value'=>$v['mid']]);
+                $this->_inputStr.=str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v['depth']-1).Html::checkbox('inputCategories[]',in_array($v['mid'],$postCategoryIds),['label'=>$v['name'],'value'=>$v['mid']]);
                 $this->_inputStr.='</div>';
 
             }

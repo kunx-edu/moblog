@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\helpers\StringHelper;
+use common\queries\MetaQuery;
 use Yii;
 use yii\helpers\Html;
 
@@ -18,10 +19,12 @@ use yii\helpers\Html;
  * @property integer $order
  * @property integer $parent
  */
-class Meta extends \yii\db\ActiveRecord
+abstract class Meta extends \yii\db\ActiveRecord
 {
-    const TYPE_CATEGORY='category';
-    const TYPE_TAG='tag';
+    //const TYPE_CATEGORY='category';
+    //const TYPE_TAG='tag';
+
+    const TYPE='';
     /**
      * @inheritdoc
      */
@@ -30,34 +33,6 @@ class Meta extends \yii\db\ActiveRecord
         return '{{%metas}}';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['name'], 'required'],
-            [['name','slug'],'checkSlugName','skipOnEmpty'=>false],
-            [['name','slug'],'checkNameExist','skipOnEmpty'=>false],
-            [['name', 'slug', 'description'], 'string', 'max' => 200],
-            [['description'],'filter','filter'=>function($value){
-                return Html::encode($value);
-            }],
-            [['count', 'order'],'filter','filter'=>function($value){
-                return intval($value);
-            }],
-            [['parent'],'filter','filter'=>function($value){
-                $value=intval($value);
-                if($value!=0){
-                    $parent=self::findOne(['mid'=>$value]);
-                    return $parent?$value:0;
-                }
-                return 0;
-
-            }],
-            [['type'],'safe']
-        ];
-    }
 
     /**
      * @inheritdoc
@@ -118,6 +93,32 @@ class Meta extends \yii\db\ActiveRecord
             }
 
         }
+    }
+
+    public static function find(){
+        return new MetaQuery(get_called_class(),['metaType'=>static::TYPE]);
+    }
+    public function getPosts($isPublished=true){
+
+        $query= $this->hasMany(Post::className(),['cid'=>'cid'])->with('categories')->with('tags')->with('author')->orderByCid();
+        if($isPublished){
+            $query=$query->published();
+        }
+        return $query->viaTable(Relationship::tableName(),['mid'=>'mid']);
+
+
+    }
+
+    public function beforeSave($insert){
+        if(parent::beforeSave($insert)){
+            if($insert){
+                $this->type=static::TYPE;
+            }
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
 

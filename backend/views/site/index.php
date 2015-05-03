@@ -1,5 +1,6 @@
 <?php
 /* @var $this yii\web\View */
+/* @var $post common\models\Content */
 
 $this->title = '网站概要';
 ?>
@@ -12,10 +13,8 @@ $this->title = '网站概要';
                 <p class="lead">点击下面的链接快速开始:</p>
                 <div>
 
-                    <a href="<?=Yii::$app->urlManager->createUrl('post/create')?>" class="btn btn-primary">撰写新文章</a>
-                    <a href="<?=Yii::$app->urlManager->createUrl('theme')?>" class="btn btn-primary">更换外观</a>
-                    <a href="<?=Yii::$app->urlManager->createUrl('plugin')?>" class="btn btn-primary">插件管理</a>
-                    <a href="<?=Yii::$app->urlManager->createUrl('option')?>" class="btn btn-primary">系统设置</a>
+                    <?=\yii\helpers\Html::a('撰写新文章',['/post/create'],['class'=>'btn btn-primary'])?>
+                    <?=\yii\helpers\Html::a('系统设置',['/option'],['class'=>'btn btn-primary'])?>
                 </div>
             </div>
         </div>
@@ -23,17 +22,17 @@ $this->title = '网站概要';
 
 </div>
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">最近发布的文章</h3>
             </div>
             <div class="panel-body">
-                <ul>
-                    <?php foreach($recentPublishedPost as $v): ?>
+                <ul class="list-unstyled">
+                    <?php foreach($recentPublishedPost as $post): ?>
                     <li>
-                        <span>10.31</span>
-                        <a href="http://typecho.m.com/index.php/archives/3/" class="title"><?=$v['title'];?></a>
+                        <span class="pull-right"><?=Yii::$app->formatter->asDate($post->created,'MM.dd') ?></span>
+                        <?=\yii\helpers\Html::a($post->title,Yii::$app->frontendUrlManager->createUrl(['site/post','id'=>$post->cid]),['target'=>'_blank'])?>
                     </li>
                     <?php endforeach; ?>
 
@@ -41,30 +40,15 @@ $this->title = '网站概要';
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">最近得到的回复</h3>
             </div>
             <div class="panel-body">
-                <ul>
-                    <li>
-                        <span>11.5</span>
-                        <a href="http://typecho.m.com/index.php/archives/1/#comment-6" class="title"><a href="http://www.typecho.org" rel="external nofollow">admin</a></a>:
-                        hiufiof                        </li>
+                <ul class="list-unstyled">
+                    <li>todo</li>
 
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">官方最新日志</h3>
-            </div>
-            <div class="panel-body">
-                <ul>
-                    <li>读取中...</li>
                 </ul>
             </div>
         </div>

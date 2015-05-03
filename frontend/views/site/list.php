@@ -2,65 +2,83 @@
 use yii\helpers\Html;
 use common\helpers\DateTimeHelper;
 /* @var $this yii\web\View */
-$this->title = Yii::$app->name;
+/* @var $pagination yii\data\Pagination */
+$this->title = '';
 ?>
-<div class="container">
-<div class="row">
-<div class="col-md-9">
-<div class="content">
-    <?php if(isset($category)):?>
-    <article class="thread thread-card">
-        <h1>分类 <?=$category['name'] ?> 下的文章</h1>
-        </article>
-    <?php endif; ?>
-    <?php foreach($postList as $v): ?>
-<article class="thread thread-card">
-    <header>
-        <div class="time-label">
-            <span class="year"><?=DateTimeHelper::getYear($v['created'])?></span>
-            <span style="display:block"><?=DateTimeHelper::getMonth($v['created'])?></span>
-            <span style="display:block"><?=DateTimeHelper::getDay($v['created'])?></span>
-        </div>
-        <h3 class="thread-title">
-            <?=Html::a($v['title'],['post','id'=>$v['cid']])?>
+<?php if(isset($category)):?>
+    <?php $this->title='分类'.$category->name.'下的文章' ?>
+<div class="cover tag-cover">
+    <h3 class="tag-name">
+        分类：<?=$category->name ?>
+    </h3>
+    <div class="post-count">
+        共 <?=$pagination->totalCount ?> 篇文章
+    </div>
+</div>
+<?php endif; ?>
+
+<?php if(isset($tag)):?>
+    <?php $this->title='标签'.$tag->name.'下的文章' ?>
+    <div class="cover tag-cover">
+        <h3 class="tag-name">
+            标签：<?=$tag->name ?>
         </h3>
-        <div class="thread-meta">
-            <a target="_blank" href="javascript:;" rel="author">
-                <?=\common\components\UserComp::getInstance()->getUserScreenName($v['authorId'])?>
-            </a>
-
-            <ul class="blog-category">
-
-                <?php
-                $postCategoryList=\common\components\CategoryComp::getInstance()->getCategoryWithPostId($v['cid']);
-                foreach($postCategoryList as $val):
-                ?>
-                <li><?=Html::a($val['name'],['site/category','id'=>$val['mid']])?></li>
-                <?php endforeach; ?>
-
-            </ul>
+        <div class="post-count">
+            共 <?=$pagination->totalCount ?> 篇文章
         </div>
-        <!--<a target="_blank" href="" rel="author" class="avatar avatar-50"><img alt="" src=""></a>-->
-    </header>
-    <div class="clearfix"></div>
-    <div class="markdown-body">
-        <?=\yii\helpers\Markdown::process($v['text'])?>
     </div>
-    <div class="thread-footer">
-        <?=Html::a('阅读原文',['post','id'=>$v['cid']],['class'=>'ds-thread-bevel'])?>
+<?php endif; ?>
+
+<?php if(isset($author)):?>
+    <?php $this->title=$author->screenName.'发布的文章' ?>
+    <div class="cover tag-cover">
+        <h3 class="tag-name">
+            作者：<?=$author->screenName ?>
+        </h3>
+        <div class="post-count">
+            共 <?=$pagination->totalCount ?> 篇文章
+        </div>
     </div>
+<?php endif; ?>
+
+<?php foreach($posts as $post): ?>
+<article class="post">
+
+    <div class="post-head">
+        <h1 class="post-title"><?=Html::a($post->title,['post','id'=>$post->cid])?></h1>
+        <div class="post-meta">
+            <span class="author"><i class="fa fa-user"></i> <?=Html::a($post->author==null?'':$post->author->screenName,['site/author','name'=>$post->author->name])?></span> &bull;
+            <span><i class="fa fa-clock-o"></i> <time class="date" datetime="<?=Yii::$app->formatter->asDate($post->created)?>"><?=Yii::$app->formatter->asDate($post->created)?></time></span> &bull;
+            <span>
+            <i class="fa fa-folder-open-o"></i>
+            <?php
+            $postCategories=$post->categories;
+            foreach($postCategories as $v):
+                ?>
+                <?=Html::a($v->name,['site/category','slug'=>$v->slug])?>
+            <?php endforeach; ?>
+            </span>
+        </div>
+    </div>
+    <div class="post-content">
+        <?=\yii\helpers\Markdown::process($post->text)?>
+    </div>
+    <div class="post-permalink">
+        <?=Html::a('阅读原文',['post','id'=>$post->cid],['class'=>'btn btn-default'])?>
+    </div>
+
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <i class="fa fa-tag"></i>
+            <?php
+            $postTags=$post->tags;
+            foreach($postTags as $v):
+                ?>
+                <?=Html::a($v->name,['site/tag','slug'=>$v->slug])?>
+            <?php endforeach; ?>
+        </div>
+    </footer>
 </article>
-    <?php endforeach; ?>
-    <div class="pagination">
-        <?=\yii\widgets\LinkPager::widget([
-            'pagination'=>$pages,
-            'options'=>['class'=>''],
-        ])?>
-    </div>
-</div>
-</div>
+<?php endforeach; ?>
 
-    <?= $this->render('_right');?>
-
-</div>
-</div>
+<?=\frontend\widgets\Pagination::widget(['pagination'=>$pagination])?>

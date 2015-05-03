@@ -5,16 +5,13 @@
 
 namespace common\widgets;
 
+use common\components\CategoryTree;
 use yii;
 use yii\helpers\Html;
-use common\components\CategoryComp;
 
 class CategoryList extends yii\base\Widget{
 
-    private $_inputStr;
-
-    private $_categoryList=[];
-
+    private $_htmlStr;
 
     public $options;
 
@@ -22,28 +19,28 @@ class CategoryList extends yii\base\Widget{
 
         parent::init();
 
-        $categoryList=CategoryComp::getInstance()->getAllChildren();
+        $categories=CategoryTree::getInstance()->getAllCategories();
 
-        $this->_inputStr='<ul>';
+        $this->_htmlStr='<ul>';
 
-        if(!empty($categoryList)){
-            foreach($categoryList as $v){
+        if(!empty($categories)){
+            foreach($categories as $v){
 
-                $this->_inputStr.='<li>';
-                $this->_inputStr.=Html::a(str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v['depth']-1).$v['name'],['site/category','id'=>$v['mid']],$this->options);
-                $this->_inputStr.='</li>';
+                $this->_htmlStr.='<li>';
+                $this->_htmlStr.=str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v['depth']-1).Html::a($v['name'].'('.$v['count'].')',['site/category','slug'=>$v['slug']],$this->options);
+                $this->_htmlStr.='</li>';
 
             }
         }
 
 
-        $this->_inputStr.='</ul>';
+        $this->_htmlStr.='</ul>';
 
     }
 
     public function run(){
 
-        return $this->_inputStr;
+        return $this->_htmlStr;
 
 
     }
